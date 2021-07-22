@@ -15,12 +15,13 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 /**
- * Created by jt on 6/13/20.
+ * modified by Pierrot on 7/23/20.
  */
 public abstract class BaseIT {
     @Autowired
     WebApplicationContext wac;
 
+    @Autowired
     MockMvc mockMvc;
 
     @MockBean
@@ -40,9 +41,6 @@ public abstract class BaseIT {
 
     @BeforeEach
     public void setup() {
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(wac)
-                .apply(springSecurity())
-                .build();
+
     }
 }
