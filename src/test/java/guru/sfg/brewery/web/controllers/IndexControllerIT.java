@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by jt on 6/13/20.
  */
 @WebMvcTest
-public class IndexControllerIT extends BaseIT {
+class IndexControllerIT extends BaseIT {
 
     @Test
     void testGetIndexSlash() throws Exception{
