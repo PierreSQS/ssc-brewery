@@ -36,7 +36,7 @@ public abstract class BaseIT {
     CustomerRepository customerRepository;
 
     @MockBean
-    BeerService beerService;
+    protected BeerService beerService;
 
     @BeforeEach
     public void setup() {
