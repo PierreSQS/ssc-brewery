@@ -40,7 +40,7 @@ import java.util.UUID;
 
 
 @RequiredArgsConstructor
-@RequestMapping("/beers")
+@RequestMapping("beers")
 @Controller
 public class BeerController {
 
@@ -77,7 +77,7 @@ public class BeerController {
     }
 
 
-    @GetMapping("/{beerId}")
+    @GetMapping("{beerId}")
     public ModelAndView showBeer(@PathVariable UUID beerId) {
         ModelAndView mav = new ModelAndView("beers/beerDetails");
         //ToDO: Add Service
@@ -85,13 +85,13 @@ public class BeerController {
         return mav;
     }
 
-    @GetMapping("/new")
+    @GetMapping("new")
     public String initCreationForm(Model model) {
         model.addAttribute("beer", Beer.builder().build());
         return "beers/createBeer";
     }
 
-    @PostMapping("/new")
+    @PostMapping("new")
     public String processCreationForm(Beer beer) {
         //ToDO: Add Service
         Beer newBeer = Beer.builder()
@@ -107,14 +107,14 @@ public class BeerController {
         return "redirect:/beers/" + savedBeer.getId();
     }
 
-    @GetMapping("/{beerId}/edit")
+    @GetMapping("{beerId}/edit")
     public String initUpdateBeerForm(@PathVariable UUID beerId, Model model) {
         if (beerRepository.findById(beerId).isPresent())
             model.addAttribute("beer", beerRepository.findById(beerId).get());
         return "beers/createOrUpdateBeer";
     }
 
-    @PostMapping("/{beerId}/edit")
+    @PostMapping("{beerId}/edit")
     public String processUpdateForm(@Valid Beer beer, BindingResult result) {
         if (result.hasErrors()) {
             return "beers/createOrUpdateBeer";

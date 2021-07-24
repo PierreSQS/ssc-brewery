@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by jt on 6/13/20.
  */
 @WebMvcTest
-public class BeerRestControllerIT extends BaseIT {
+class BeerRestControllerIT extends BaseIT {
 
     @Test
     void findBeers() throws Exception{
