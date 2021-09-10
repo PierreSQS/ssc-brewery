@@ -21,38 +21,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * Created by jt on 6/12/20.
+ * Modified by Pierrot on 9/10/21.
  */
 @WebMvcTest
-public class BeerControllerIT {
+public class BeerControllerIT extends BaseIT{
 
-    @Autowired
-    WebApplicationContext wac;
-
-    MockMvc mockMvc;
-
-    @MockBean
-    BeerRepository beerRepository;
-
-    @MockBean
-    BeerInventoryRepository beerInventoryRepository;
-
-    @MockBean
-    BreweryService breweryService;
-
-    @MockBean
-    CustomerRepository customerRepository;
-
-    @MockBean
-    BeerService beerService;
-
-    @BeforeEach
-    void setUp() {
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(wac)
-                .apply(springSecurity())
-                .build();
-    }
 
     @WithMockUser("spring")
     @Test
