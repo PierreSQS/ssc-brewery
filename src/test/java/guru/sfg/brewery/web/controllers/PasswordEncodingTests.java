@@ -20,6 +20,14 @@ class PasswordEncodingTests {
     static final String TIGER_PASSWORD = "tiger";
 
     @Test
+    void testBcrypt15() {
+        PasswordEncoder bcrypt = new BCryptPasswordEncoder(15);
+
+        System.out.println(bcrypt.encode(TIGER_PASSWORD));
+
+    }
+
+    @Test
     void testBcrypt() {
         PasswordEncoder bcrypt = new BCryptPasswordEncoder();
 
