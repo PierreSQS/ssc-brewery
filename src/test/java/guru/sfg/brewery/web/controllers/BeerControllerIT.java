@@ -16,7 +16,7 @@ class BeerControllerIT extends BaseIT{
 
     @Test
     void initCreationForm() throws Exception {
-        mockMvc.perform(get("/beers/new").with(httpBasic("user", "password")))
+        mockMvc.perform(get("/beers/new").with(httpBasic("springuser", "springuser")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/createBeer"))
                 .andExpect(model().attributeExists("beer"));
