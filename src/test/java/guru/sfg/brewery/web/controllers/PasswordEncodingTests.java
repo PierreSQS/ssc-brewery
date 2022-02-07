@@ -11,18 +11,20 @@ import org.springframework.util.DigestUtils;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Created by jt on 6/16/20.
+ * Modified by Pierrot on 2/7/22.
  */
-public class PasswordEncodingTests {
+class PasswordEncodingTests {
 
-    static final String PASSWORD = "password";
+    static final String USER_PASSWORD = "password";
+    static final String ADMIN_PASSWORD = "guru";
+    static final String TIGER_PASSWORD = "tiger";
 
     @Test
     void testBcrypt() {
         PasswordEncoder bcrypt = new BCryptPasswordEncoder();
 
-        System.out.println(bcrypt.encode(PASSWORD));
-        System.out.println(bcrypt.encode(PASSWORD));
+        System.out.println(bcrypt.encode(USER_PASSWORD));
+        System.out.println(bcrypt.encode(USER_PASSWORD));
 
     }
 
@@ -30,19 +32,19 @@ public class PasswordEncodingTests {
     void testSha256() {
         PasswordEncoder sha256 = new StandardPasswordEncoder();
 
-        System.out.println(sha256.encode(PASSWORD));
-        System.out.println(sha256.encode(PASSWORD));
+        System.out.println(sha256.encode(USER_PASSWORD));
+        System.out.println(sha256.encode(USER_PASSWORD));
     }
 
     @Test
     void testLdap() {
         PasswordEncoder ldap = new LdapShaPasswordEncoder();
-        System.out.println(ldap.encode(PASSWORD));
-        System.out.println(ldap.encode(PASSWORD));
+        System.out.println(ldap.encode(USER_PASSWORD));
+        System.out.println(ldap.encode(USER_PASSWORD));
 
-        String encodedPwd = ldap.encode(PASSWORD);
+        String encodedPwd = ldap.encode(USER_PASSWORD);
 
-        assertTrue(ldap.matches(PASSWORD, encodedPwd ));
+        assertTrue(ldap.matches(USER_PASSWORD, encodedPwd ));
 
     }
 
@@ -50,15 +52,15 @@ public class PasswordEncodingTests {
     void testNoOp() {
         PasswordEncoder noOp = NoOpPasswordEncoder.getInstance();
 
-        System.out.println(noOp.encode(PASSWORD));
+        System.out.println(noOp.encode(USER_PASSWORD));
     }
 
     @Test
     void hashingExample() {
-        System.out.println(DigestUtils.md5DigestAsHex(PASSWORD.getBytes()));
-        System.out.println(DigestUtils.md5DigestAsHex(PASSWORD.getBytes()));
+        System.out.println(DigestUtils.md5DigestAsHex(USER_PASSWORD.getBytes()));
+        System.out.println(DigestUtils.md5DigestAsHex(USER_PASSWORD.getBytes()));
 
-        String salted = PASSWORD + "ThisIsMySALTVALUE";
+        String salted = USER_PASSWORD + "ThisIsMySALTVALUE";
         System.out.println(DigestUtils.md5DigestAsHex(salted.getBytes()));
     }
 }
