@@ -1,11 +1,18 @@
 package guru.sfg.brewery.domain.security;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
 /**
- * Created by jt on 6/21/20.
+ * Extended by Pierrot on 2/8/22.
  */
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class Authority {
 
