@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
- * Created by jt on 6/13/20.
+ * Modified by Pierrot on 2/8/22.
  */
 @Configuration
 @EnableWebSecurity
