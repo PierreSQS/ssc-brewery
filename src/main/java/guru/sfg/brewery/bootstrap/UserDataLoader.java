@@ -9,7 +9,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @Component
@@ -43,25 +42,22 @@ public class UserDataLoader implements CommandLineRunner {
         User user = User.builder()
                 .username("user")
                 .password("sha256}1296cefceb47413d3fb91ac7586a4625c33937b4d3109f5a4dd96c79c46193a029db713b96006ded")
+                .authority(userAuth)
                 .build();
 
         User admin = User.builder()
                 .username("spring")
                 .password("{bcrypt}$2a$10$7tYAvVL2/KwcQTcQywHIleKueg4ZK7y7d44hKyngjTwHCDlesxdla")
+                .authority(userAuth)
+                .authority(adminAuth)
                 .build();
 
         User scott = User.builder()
                 .username("scott")
                 .password("{bcrypt10}$2a$10$jv7rEbL65k4Q3d/mqG5MLuLDLTlg5oKoq2QOOojfB3e2awo.nlmgu")
+                .authority(userAuth)
+                .authority(customerAuth)
                 .build();
-
-        Set<Authority> userAuthorities = Set.of(userAuth);
-        Set<Authority> adminAuthorities = Set.of(adminAuth,userAuth);
-        Set<Authority> scottAuthorities = Set.of(userAuth,customerAuth);
-
-        user.setAuthorities(userAuthorities);
-        admin.setAuthorities(adminAuthorities);
-        scott.setAuthorities(scottAuthorities);
 
         log.info("Loading Authorities....");
         authRepo.saveAll(List.of(adminAuth, customerAuth,  userAuth));
