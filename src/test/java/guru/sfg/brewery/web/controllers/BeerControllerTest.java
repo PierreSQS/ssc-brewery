@@ -54,18 +54,16 @@ class BeerControllerTest {
     BeerController controller;
     List<Beer> beerList;
     UUID uuid;
-    Beer beer;
 
     MockMvc mockMvc;
-    Page<Beer> beers;
     Page<Beer> pagedResponse;
 
     @BeforeEach
     void setUp() {
-        beerList = new ArrayList<Beer>();
+        beerList = new ArrayList<>();
         beerList.add(Beer.builder().build());
         beerList.add(Beer.builder().build());
-        pagedResponse = new PageImpl(beerList);
+        pagedResponse = new PageImpl<>(beerList);
 
         final String id = "493410b3-dd0b-4b78-97bf-289f50f6e74f";
         uuid = UUID.fromString(id);
@@ -81,10 +79,10 @@ class BeerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/findBeers"))
                 .andExpect(model().attributeExists("beer"));
-        verifyZeroInteractions(beerRepository);
+        verifyNoMoreInteractions(beerRepository);
     }
 
-    //ToDO: Mocking Page
+    //TODO: Mocking Page
      void processFindFormReturnMany() throws Exception{
         when(beerRepository.findAllByBeerName(anyString(), PageRequest.of(0,
               10,Sort.Direction.DESC,"beerName"))).thenReturn(pagedResponse);
@@ -111,7 +109,7 @@ class BeerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/createBeer"))
                 .andExpect(model().attributeExists("beer"));
-        verifyZeroInteractions(beerRepository);
+        verifyNoMoreInteractions(beerRepository);
     }
 
     @Test
@@ -131,7 +129,7 @@ class BeerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/createOrUpdateBeer"))
                 .andExpect(model().attributeExists("beer"));
-        verifyZeroInteractions(beerRepository);
+        verifyNoMoreInteractions(beerRepository);
     }
 
     @Test

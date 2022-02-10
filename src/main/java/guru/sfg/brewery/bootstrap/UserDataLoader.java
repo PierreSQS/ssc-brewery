@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by jt on 6/21/20.
+ * Modified by Pierrot on 2/10/22.
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -26,6 +26,7 @@ public class UserDataLoader implements CommandLineRunner {
         Authority admin = authorityRepository.save(Authority.builder().role("ADMIN").build());
         Authority userRole = authorityRepository.save(Authority.builder().role("USER").build());
         Authority customer = authorityRepository.save(Authority.builder().role("CUSTOMER").build());
+        log.debug("Authorities Loaded: " + authorityRepository.count());
 
         userRepository.save(User.builder()
                 .username("spring")

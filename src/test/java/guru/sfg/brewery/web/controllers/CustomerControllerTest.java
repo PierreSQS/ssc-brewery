@@ -41,6 +41,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+/**
+ * Modified by Pierrot on 2/10/22.
+ */
 @ExtendWith(MockitoExtension.class)
 class CustomerControllerTest {
 
@@ -57,8 +60,7 @@ class CustomerControllerTest {
 
     @BeforeEach
     void setUp() {
-        customerList = new ArrayList<Customer>();
-        customerList.add(Customer.builder().customerName("John Doe").build());
+        customerList = new ArrayList<>();
         customerList.add(Customer.builder().customerName("John Doe").build());
 
         final String id = "493410b3-dd0b-4b78-97bf-289f50f6e74f";
@@ -75,11 +77,11 @@ class CustomerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("customers/findCustomers"))
                 .andExpect(model().attributeExists("customer"));
-        verifyZeroInteractions(customerRepository);
+        verifyNoMoreInteractions(customerRepository);
     }
-//ToDO: Fix stubbing error
+//TODO: Fix stubbing error
     @Test
-    @Disabled
+    @Disabled("Reason: Fix stubbing error")
     void processFindFormReturnMany() throws Exception{
         when(customerRepository.findAllByCustomerNameLike("John Doe")).thenReturn(customerList);
 
@@ -104,7 +106,7 @@ class CustomerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("customers/createCustomer"))
                 .andExpect(model().attributeExists("customer"));
-        verifyZeroInteractions(customerRepository);
+        verifyNoMoreInteractions(customerRepository);
     }
 
     @Test
@@ -124,7 +126,7 @@ class CustomerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("customers/createOrUpdateCustomer"))
                 .andExpect(model().attributeExists("customer"));
-        verifyZeroInteractions(customerRepository);
+        verifyNoMoreInteractions(customerRepository);
     }
 
     @Test

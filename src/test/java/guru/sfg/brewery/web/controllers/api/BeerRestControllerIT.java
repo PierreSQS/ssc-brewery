@@ -10,10 +10,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by jt on 6/13/20.
+ * Modified by Pierrot on 2/10/22.
  */
 @WebMvcTest
-public class BeerRestControllerIT extends BaseIT {
+class BeerRestControllerIT extends BaseIT {
 
     @Test
     void deleteBeerUrl() throws Exception{
