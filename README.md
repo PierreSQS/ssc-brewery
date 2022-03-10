@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/db-load-user-data-pierrot.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/db-load-user-data-pierrot)
 # Brewery Spring MVC Monolith
 
 This repository contains source code examples used to support my on-line courses about the Spring Framework.
