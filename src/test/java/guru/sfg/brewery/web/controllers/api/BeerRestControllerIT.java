@@ -2,7 +2,6 @@ package guru.sfg.brewery.web.controllers.api;
 
 import guru.sfg.brewery.web.controllers.BaseIT;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -10,10 +9,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by jt on 6/13/20.
+ * modified by Pierrot on 3/10/22.
  */
-@WebMvcTest
-public class BeerRestControllerIT extends BaseIT {
+class BeerRestControllerIT extends BaseIT {
 
     @Test
     void deleteBeerUrl() throws Exception{
