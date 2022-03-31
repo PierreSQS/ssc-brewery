@@ -3,13 +3,15 @@ package guru.sfg.brewery.web.controllers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
- * Modified by Pierrot on 2/10/22.
+ * Added a Result Matcher by Pierrot on 3/31/22.
  */
 @SpringBootTest
 class BeerControllerIT extends BaseIT{
@@ -19,7 +21,9 @@ class BeerControllerIT extends BaseIT{
         mockMvc.perform(get("/beers/new").with(httpBasic("spring", "guru")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/createBeer"))
-                .andExpect(model().attributeExists("beer"));
+                .andExpect(model().attributeExists("beer"))
+                .andExpect(content().string(containsString("<title>SFG Beer Works</title>")))
+                .andDo(print());
     }
 
     @Test
