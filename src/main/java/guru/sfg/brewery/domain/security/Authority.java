@@ -1,6 +1,7 @@
 package guru.sfg.brewery.domain.security;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Authority {
+public class Authority implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,4 +25,9 @@ public class Authority {
 
     @ManyToMany(mappedBy = "authorities")
     private Set<User> users;
+
+    @Override
+    public String getAuthority() {
+        return role;
+    }
 }
