@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: cimg/openjdk:17.0.1
+      - image: cimg/openjdk:11.0.8-jdk
 
     working_directory: ~/repo
 
@@ -25,7 +25,7 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: mvn install dependency:go-offline -Dmaven.test.skip=true
+      - run: mvn -V install dependency:go-offline -Dmaven.test.skip=true
 
       - save_cache:
           paths:
@@ -33,4 +33,4 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       # run tests!
-      - run: mvn integration-test
+      - run: mvn -V integration-test
