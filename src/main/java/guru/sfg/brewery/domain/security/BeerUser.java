@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-public class User {
+public class BeerUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

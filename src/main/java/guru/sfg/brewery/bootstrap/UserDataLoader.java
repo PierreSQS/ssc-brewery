@@ -1,9 +1,9 @@
 package guru.sfg.brewery.bootstrap;
 
 import guru.sfg.brewery.domain.security.Authority;
-import guru.sfg.brewery.domain.security.User;
+import guru.sfg.brewery.domain.security.BeerUser;
 import guru.sfg.brewery.repositories.security.AuthorityRepository;
-import guru.sfg.brewery.repositories.security.UserRepository;
+import guru.sfg.brewery.repositories.security.BeerUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class UserDataLoader implements CommandLineRunner {
 
     private final AuthorityRepository authorityRepository;
-    private final UserRepository userRepository;
+    private final BeerUserRepository beerBeerUserRepository;
     private final PasswordEncoder passwordEncoder;
 
     private void loadSecurityData() {
@@ -28,29 +28,29 @@ public class UserDataLoader implements CommandLineRunner {
         Authority customer = authorityRepository.save(Authority.builder().role("CUSTOMER").build());
         log.debug("Authorities Loaded: " + authorityRepository.count());
 
-        userRepository.save(User.builder()
+        beerBeerUserRepository.save(BeerUser.builder()
                 .username("spring")
                 .password(passwordEncoder.encode("guru"))
                 .authority(admin)
                 .build());
 
-        userRepository.save(User.builder()
+        beerBeerUserRepository.save(BeerUser.builder()
                 .username("user")
                 .password(passwordEncoder.encode("password"))
                 .authority(userRole)
                 .build());
 
-        userRepository.save(User.builder()
+        beerBeerUserRepository.save(BeerUser.builder()
                 .username("scott")
                 .password(passwordEncoder.encode("tiger"))
                 .authority(customer)
                 .build());
 
-        log.debug("Users Loaded: " + userRepository.count());
+        log.debug("BeerUsers Loaded: " + beerBeerUserRepository.count());
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (authorityRepository.count() == 0) {
             loadSecurityData();
         }

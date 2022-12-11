@@ -1,7 +1,7 @@
 package guru.sfg.brewery.security;
 
-import guru.sfg.brewery.domain.security.User;
-import guru.sfg.brewery.repositories.security.UserRepository;
+import guru.sfg.brewery.domain.security.BeerUser;
+import guru.sfg.brewery.repositories.security.BeerUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class JpaUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final BeerUserRepository beerUserRepository;
 
     @Transactional
     @Override
@@ -26,7 +26,7 @@ public class JpaUserDetailsService implements UserDetailsService {
 
         log.debug("Getting User info via JPA");
 
-        User user = userRepository.findByUsername(username)
+        BeerUser user = beerUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User name: " + username + " not found"));
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
