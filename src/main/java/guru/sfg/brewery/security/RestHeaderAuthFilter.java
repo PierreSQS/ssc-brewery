@@ -1,13 +1,9 @@
 package guru.sfg.brewery.security;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.util.StringUtils;
 
-import javax.servlet.ServletException;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -16,37 +12,28 @@ import java.io.IOException;
  * Created by jt on 6/19/20.
  */
 @Slf4j
-public class RestHeaderAuthFilter extends AbstractAuthenticationProcessingFilter {
+public class RestHeaderAuthFilter implements Filter {
 
-    public RestHeaderAuthFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
-        super(requiresAuthenticationRequestMatcher);
-    }
+    public static final String API_KEY = "Api-Key";
+    public static final String API_SECRET = "Api-Secret";
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-        String userName = getUsername(request);
-        String password = getPassword(request);
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
+        HttpServletRequest httpServletReq = (HttpServletRequest) servletRequest;
+        HttpServletResponse httpServletResp = (HttpServletResponse) servletResponse;
 
-        if (userName == null){
-            userName = "";
+        String userName = httpServletReq.getHeader(API_KEY);
+        String password = httpServletReq.getHeader(API_SECRET);
+
+        if (!StringUtils.isEmpty(userName) && !StringUtils.isEmpty(password)
+                && userName.equals("spring") && password.equals("guru")){
+             log.info("User {} successfully authenticated!!!!" ,userName);
+             filterChain.doFilter(servletRequest,servletResponse);
+        } else {
+            httpServletResp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            log.info("Bad Credentials {}:{}, {}:{}",API_KEY,userName,API_SECRET,password);
         }
 
-        if (password == null){
-            password = "";
-        }
-
-        log.debug("Authenticating User: " + userName);
-
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName, password);
-
-        return this.getAuthenticationManager().authenticate(token);
-    }
-
-    private String getPassword(HttpServletRequest request) {
-        return request.getHeader("Api-Secret");
-    }
-
-    private String getUsername(HttpServletRequest request) {
-        return request.getHeader("Api-Key");
     }
 }
