@@ -19,8 +19,8 @@ package guru.sfg.brewery.web.controllers;
 
 
 import guru.sfg.brewery.domain.Beer;
-import guru.sfg.brewery.repositories.BeerInventoryRepository;
 import guru.sfg.brewery.repositories.BeerRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,7 +34,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,7 +44,6 @@ import java.util.UUID;
 public class BeerController {
 
     private final BeerRepository beerRepository;
-    private final BeerInventoryRepository beerInventoryRepository;
 
 
     @RequestMapping("/find")
