@@ -1,6 +1,9 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/PierreSQS/ssc-brewery/tree/cust-auth-java-cfg-sb3.0.1.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/PierreSQS/ssc-brewery/tree/cust-auth-java-cfg-sb3.0.1)
+
 # Brewery Spring MVC Monolith
 
 This repository contains source code examples used to support my on-line courses about the Spring Framework.
+Also it contains the code of Pierrot on this branch and is related to the JT Course [Sect7-Chap44](https://www.udemy.com/course/spring-security-core-beginner-to-guru/learn/lecture/20665446#overview)
 
 You can learn more about the courses here:
 * [Spring Security Core: Beginner to Guru](https://www.udemy.com/course/spring-security-core-beginner-to-guru/?referralCode=306F288EB78688C0F3BC)
