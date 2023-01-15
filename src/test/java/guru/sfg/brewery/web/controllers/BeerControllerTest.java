@@ -62,7 +62,7 @@ class BeerControllerTest {
 
     @BeforeEach
     void setUp() {
-        beerList = new ArrayList<Beer>();
+        beerList = new ArrayList<>();
         beerList.add(Beer.builder().build());
         beerList.add(Beer.builder().build());
         pagedResponse = new PageImpl<>(beerList);
@@ -131,7 +131,7 @@ class BeerControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("beers/createOrUpdateBeer"))
                 .andExpect(model().attributeExists("beer"));
-        verifyNoInteractions(beerRepository);
+        verifyNoMoreInteractions(beerRepository);
     }
 
     @Test
