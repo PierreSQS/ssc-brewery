@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -16,6 +18,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.List;
 
 /**
  * Modified by Pierrot on 1/10/23.
@@ -32,10 +36,10 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-                http.addFilterBefore(restHeaderAuthFilter(http.getSharedObject(AuthenticationManager.class)),
+                http.addFilterBefore(restHeaderAuthFilter(getAuthenticationManager()),
                         UsernamePasswordAuthenticationFilter.class);
 
-                http
+                http.csrf().disable()
                 .authorizeHttpRequests(matchers -> matchers
                         .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                         .requestMatchers("/beers/find", "/beers*").permitAll()
@@ -75,18 +79,11 @@ public class SecurityConfig {
         return new InMemoryUserDetailsManager(admin, user, scott);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    private AuthenticationManager getAuthenticationManager() {
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService());
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+        return new ProviderManager(List.of(daoAuthenticationProvider));
+    }
 
 }
