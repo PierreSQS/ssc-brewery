@@ -14,7 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-public class User {
+// USER is a reserved word in H2 2.2.214!!!!
+public class JTUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
