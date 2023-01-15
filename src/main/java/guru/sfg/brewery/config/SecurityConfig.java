@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
- * Created by jt on 6/13/20.
+ * Modified by Pierrot on 1/10/23.
  */
 @Configuration
 @EnableWebSecurity
@@ -36,11 +36,11 @@ public class SecurityConfig {
                         UsernamePasswordAuthenticationFilter.class);
 
                 http
-                .securityMatchers(matchers -> matchers
-                        .requestMatchers("/", "/webjars/**", "/login", "/resources/**")
-                        .requestMatchers("/beers/find", "/beers*")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/beer/**")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}"))
+                .authorizeHttpRequests(matchers -> matchers
+                        .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
+                        .requestMatchers("/beers/find", "/beers*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll())
                 .authorizeHttpRequests()
                 .anyRequest().authenticated()
                 .and()
