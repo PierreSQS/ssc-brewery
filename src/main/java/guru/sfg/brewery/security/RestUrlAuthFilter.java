@@ -2,7 +2,7 @@ package guru.sfg.brewery.security;
 
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Created by jt on 6/20/20.

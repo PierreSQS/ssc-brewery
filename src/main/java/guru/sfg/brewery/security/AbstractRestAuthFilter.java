@@ -10,12 +10,12 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -87,7 +87,7 @@ public abstract class AbstractRestAuthFilter extends AbstractAuthenticationProce
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName, password);
 
-        if (!StringUtils.isEmpty(userName)) {
+        if (!StringUtils.hasLength(userName)) {
             return this.getAuthenticationManager().authenticate(token);
         } else {
             return null;
@@ -96,8 +96,7 @@ public abstract class AbstractRestAuthFilter extends AbstractAuthenticationProce
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request,
-                                            HttpServletResponse response, FilterChain chain, Authentication authResult)
-            throws IOException, ServletException {
+                                            HttpServletResponse response, FilterChain chain, Authentication authResult) {
 
         if (logger.isDebugEnabled()) {
             logger.debug("Authentication success. Updating SecurityContextHolder to contain: "
