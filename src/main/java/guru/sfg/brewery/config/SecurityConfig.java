@@ -42,13 +42,11 @@ public class SecurityConfig {
         return filter;
     }
 
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
                 http.addFilterBefore(restHeaderAuthFilter(authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
-
-                http.addFilterBefore(restUrlAuthFilter(authenticationManager()),
-                        UsernamePasswordAuthenticationFilter.class);
 
                 http
                 .authorizeHttpRequests(authorize -> authorize
