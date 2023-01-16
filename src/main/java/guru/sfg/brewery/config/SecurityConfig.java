@@ -48,6 +48,10 @@ public class SecurityConfig {
                         UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
 
+                http.addFilterBefore(restUrlAuthFilter(authenticationManager()),
+                UsernamePasswordAuthenticationFilter.class);
+
+
                 http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/h2-console/**").permitAll() //do not use in production!
