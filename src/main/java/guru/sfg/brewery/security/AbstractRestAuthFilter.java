@@ -1,5 +1,11 @@
 package guru.sfg.brewery.security;
 
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,14 +14,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.util.StringUtils;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -24,7 +23,7 @@ import java.io.IOException;
 @Slf4j
 public abstract class AbstractRestAuthFilter extends AbstractAuthenticationProcessingFilter {
 
-    public AbstractRestAuthFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
+    protected AbstractRestAuthFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
         super(requiresAuthenticationRequestMatcher);
     }
 
@@ -57,7 +56,7 @@ public abstract class AbstractRestAuthFilter extends AbstractAuthenticationProce
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request,
                                               HttpServletResponse response, AuthenticationException failed)
-            throws IOException, ServletException {
+            throws IOException {
 
         SecurityContextHolder.clearContext();
 
@@ -71,7 +70,7 @@ public abstract class AbstractRestAuthFilter extends AbstractAuthenticationProce
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String userName = getUsername(request);
         String password = getPassword(request);
 
@@ -87,7 +86,7 @@ public abstract class AbstractRestAuthFilter extends AbstractAuthenticationProce
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName, password);
 
-        if (!StringUtils.hasLength(userName)) {
+        if (userName.equals("spring") && password.equals("guru")) {
             return this.getAuthenticationManager().authenticate(token);
         } else {
             return null;

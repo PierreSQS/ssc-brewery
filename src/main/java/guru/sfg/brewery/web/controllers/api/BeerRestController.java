@@ -121,7 +121,7 @@ public class BeerRestController {
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ResponseEntity<List<String>> badReqeustHandler(ConstraintViolationException e){
+    ResponseEntity<List<String>> badRequestHandler(ConstraintViolationException e){
         List<String> errors = new ArrayList<>(e.getConstraintViolations().size());
 
         e.getConstraintViolations().forEach(constraintViolation ->
