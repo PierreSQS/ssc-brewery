@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -33,7 +34,8 @@ public class SecurityConfig {
         return filter;
     }
 
-    protected void configure(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http.addFilterBefore(restHeaderAuthFilter(authenticationManager()),
                         UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
@@ -49,6 +51,8 @@ public class SecurityConfig {
                 .and()
                 .formLogin().and()
                 .httpBasic();
+
+                return http.build();
     }
 
     @Bean
@@ -57,7 +61,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    protected UserDetailsService userDetailsService() {
+    public UserDetailsService userDetailsService() {
         UserDetails admin = User.withUsername("spring")
                 .password("{bcrypt}$2a$10$7tYAvVL2/KwcQTcQywHIleKueg4ZK7y7d44hKyngjTwHCDlesxdla")
                 .roles("ADMIN")
