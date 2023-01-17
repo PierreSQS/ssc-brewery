@@ -1,3 +1,5 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/PierreSQS/ssc-brewery/tree/cust-auth-do-filter-pierrot-sb3.0.1.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/PierreSQS/ssc-brewery/tree/cust-auth-do-filter-pierrot-sb3.0.1)
+
 # Brewery Spring MVC Monolith
 
 This repository contains source code examples used to support my on-line courses about the Spring Framework.
