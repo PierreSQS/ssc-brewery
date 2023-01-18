@@ -7,11 +7,17 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.log.LogMessage;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.StringUtils;
 
@@ -94,6 +100,23 @@ public class RestHeaderAuthFilter extends AbstractAuthenticationProcessingFilter
         }
 
     }
+
+    @Override
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+                                            FilterChain chain, Authentication authResult) {
+
+        SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder.getContextHolderStrategy();
+        SecurityContext context = securityContextHolderStrategy.createEmptyContext();
+        context.setAuthentication(authResult);
+        securityContextHolderStrategy.setContext(context);
+
+        SecurityContextRepository securityContextRepository = new RequestAttributeSecurityContextRepository();
+        securityContextRepository.saveContext(context, request, response);
+        if (this.logger.isDebugEnabled()) {
+            this.logger.debug(LogMessage.format("Set SecurityContextHolder to %s", authResult));
+        }
+    }
+
 
     private String getPassword(HttpServletRequest request) {
         return request.getHeader("Api-Secret");
