@@ -1,7 +1,7 @@
 package guru.sfg.brewery.bootstrap;
 
 import guru.sfg.brewery.domain.security.Authority;
-import guru.sfg.brewery.domain.security.JTUser;
+import guru.sfg.brewery.domain.security.User;
 import guru.sfg.brewery.repositories.security.AuthorityRepository;
 import guru.sfg.brewery.repositories.security.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,19 +27,19 @@ public class UserDataLoader implements CommandLineRunner {
         Authority userRole = authorityRepository.save(Authority.builder().role("USER").build());
         Authority customer = authorityRepository.save(Authority.builder().role("CUSTOMER").build());
 
-        userRepository.save(JTUser.builder()
+        userRepository.save(User.builder()
                 .username("spring")
                 .password(passwordEncoder.encode("guru"))
                 .authority(admin)
                 .build());
 
-        userRepository.save(JTUser.builder()
+        userRepository.save(User.builder()
                 .username("user")
                 .password(passwordEncoder.encode("password"))
                 .authority(userRole)
                 .build());
 
-        userRepository.save(JTUser.builder()
+        userRepository.save(User.builder()
                 .username("scott")
                 .password(passwordEncoder.encode("tiger"))
                 .authority(customer)
