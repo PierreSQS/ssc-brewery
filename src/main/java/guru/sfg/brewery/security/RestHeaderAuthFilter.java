@@ -8,9 +8,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.util.StringUtils;
 
 /**
- * Created by jt on 6/19/20.
+ * Modified by Pierrot on 1/18/2023
  */
 @Slf4j
 public class RestHeaderAuthFilter extends AbstractAuthenticationProcessingFilter {
@@ -36,7 +37,15 @@ public class RestHeaderAuthFilter extends AbstractAuthenticationProcessingFilter
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userName, password);
 
-        return this.getAuthenticationManager().authenticate(token);
+        // if header credentials present, then authenticate
+        if (StringUtils.hasText(userName) && StringUtils.hasText(password)) { // we only check the Api-Keys exists, for security reasons
+            return this.getAuthenticationManager().authenticate(token);
+        } else {
+            // if not skip the filtering. We want then to continue the filter chain
+            // See implementation of the doFilter()-Method
+            return null;
+        }
+
     }
 
     private String getPassword(HttpServletRequest request) {
