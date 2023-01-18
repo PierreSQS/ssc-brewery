@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by jt on 6/13/20.
  */
-public class BeerRestControllerIT extends BaseIT {
+class BeerRestControllerIT extends BaseIT {
 
     @Test
     void deleteBeer() throws Exception {
@@ -35,7 +35,7 @@ public class BeerRestControllerIT extends BaseIT {
 
     @Test
     void findBeers() throws Exception{
-        mockMvc.perform(get("/api/v1/beer/"))
+        mockMvc.perform(get("/api/v1/beer"))
                 .andExpect(status().isOk());
     }
 
