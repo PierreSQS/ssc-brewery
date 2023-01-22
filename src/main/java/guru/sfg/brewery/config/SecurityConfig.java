@@ -26,6 +26,7 @@ public class SecurityConfig {
                         .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                         .requestMatchers("/beers/find", "/beers*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll())
                 .authorizeHttpRequests()
                 .anyRequest().authenticated()
