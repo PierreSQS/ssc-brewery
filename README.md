@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/db-test-context-revisit-sb3.0.1-INT.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/db-test-context-revisit-sb3.0.1-INT)
+[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/role-filter-role-sb3.0.1.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/role-filter-role-sb3.0.1)
 # Brewery Spring MVC Monolith
 
 This repository contains source code examples used to support my on-line course [Spring Security Core: Beginner to Guru](https://www.udemy.com/course/spring-security-core-beginner-to-guru/).
