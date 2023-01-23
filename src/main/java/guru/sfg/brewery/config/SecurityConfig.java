@@ -27,6 +27,7 @@ public class SecurityConfig {
                         .requestMatchers("/beers/find", "/beers*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/brewery/breweries/**","/brewery/api/v1/breweries").hasRole("CUSTOMER")
                         .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll())
                 .authorizeHttpRequests()
                 .anyRequest().authenticated()
