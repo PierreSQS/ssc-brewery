@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 @Entity
+// User is a reserved word in H2.2.1.214
+@Table(name = "BEER_USER")
 public class User implements UserDetails, CredentialsContainer {
 
     @Id
@@ -44,9 +46,7 @@ public class User implements UserDetails, CredentialsContainer {
         return this.roles.stream()
                 .map(Role::getAuthorities)
                 .flatMap(Set::stream)
-                .map(authority -> {
-                    return new SimpleGrantedAuthority(authority.getPermission());
-                })
+                .map(authority -> new SimpleGrantedAuthority(authority.getPermission()))
                 .collect(Collectors.toSet());
     }
 

@@ -1,22 +1,23 @@
 package guru.sfg.brewery.config;
 
 import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
+import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * Created by jt on 6/13/20.
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableMethodSecurity
+public class SecurityConfig {
 
     // needed for use with Spring Data JPA SPeL
     @Bean
@@ -24,77 +25,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new SecurityEvaluationContextExtension();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    public SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
 
-                http
-                .authorizeRequests(authorize -> {
-                    authorize
-                            .antMatchers("/h2-console/**").permitAll() //do not use in production!
-                            .antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll();
-                } )
-                .authorizeRequests()
+                httpSecurity
+                .authorizeHttpRequests(authorize ->
+                        authorize.requestMatchers(PathRequest.toH2Console()).permitAll() //do not use in production!
+                        .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll())
+                .authorizeHttpRequests()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().and()
                 .httpBasic()
-                .and().csrf().ignoringAntMatchers("/h2-console/**", "/api/**");
+                .and().csrf().ignoringRequestMatchers("/h2-console/**", "/api/**");
 
                 //h2 console config
-                http.headers().frameOptions().sameOrigin();
+                httpSecurity.headers().frameOptions().sameOrigin();
+
+                return httpSecurity.build();
     }
 
     @Bean
     PasswordEncoder passwordEncoder(){
         return SfgPasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-
-   // @Override
- //   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-       // auth.userDetailsService(this.jpaUserDetailsService).passwordEncoder(passwordEncoder());
-
-//        auth.inMemoryAuthentication()
-//                .withUser("spring")
-//                .password("{bcrypt}$2a$10$7tYAvVL2/KwcQTcQywHIleKueg4ZK7y7d44hKyngjTwHCDlesxdla")
-//                .roles("ADMIN")
-//                .and()
-//                .withUser("user")
-//                .password("{sha256}1296cefceb47413d3fb91ac7586a4625c33937b4d3109f5a4dd96c79c46193a029db713b96006ded")
-//                .roles("USER");
-//
-//        auth.inMemoryAuthentication().withUser("scott").password("{bcrypt15}$2a$15$baOmQtw8UqWZRDQhMFPFj.xhkkWveCTQHe4OBdr8yw8QshejiSbI6").roles("CUSTOMER");
-  //  }
-
-    //    @Override
-//    @Bean
-//    protected UserDetailsService userDetailsService() {
-//        UserDetails admin = User.withDefaultPasswordEncoder()
-//                .username("spring")
-//                .password("guru")
-//                .roles("ADMIN")
-//                .build();
-//
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("password")
-//                .roles("USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin, user);
-//    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
