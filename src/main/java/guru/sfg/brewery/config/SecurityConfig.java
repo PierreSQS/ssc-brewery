@@ -1,13 +1,9 @@
 package guru.sfg.brewery.config;
 
-import guru.sfg.brewery.security.RestHeaderAuthFilter;
 import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -16,28 +12,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import java.util.List;
+import static guru.sfg.brewery.config.MyCustomDsl.customDsl;
 
 /**
- * Modified by Pierrot on 1/10/23.
+ * Modified by Pierrot on 2/07/23.
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    public RestHeaderAuthFilter restHeaderAuthFilter(AuthenticationManager authenticationManager){
-        RestHeaderAuthFilter filter = new RestHeaderAuthFilter(new AntPathRequestMatcher("/api/**"));
-        filter.setAuthenticationManager(authenticationManager);
-        return filter;
-    }
+
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-                http.addFilterBefore(restHeaderAuthFilter(getAuthenticationManager()),
-                        UsernamePasswordAuthenticationFilter.class);
 
                 http.csrf().disable()
                 .authorizeHttpRequests(matchers -> matchers
@@ -50,6 +38,8 @@ public class SecurityConfig {
                 .and()
                 .formLogin().and()
                 .httpBasic();
+
+                http.apply(customDsl());
 
                 return http.build();
     }
@@ -77,13 +67,6 @@ public class SecurityConfig {
                 .build();
 
         return new InMemoryUserDetailsManager(admin, user, scott);
-    }
-
-    private AuthenticationManager getAuthenticationManager() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService());
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        return new ProviderManager(List.of(daoAuthenticationProvider));
     }
 
 }
