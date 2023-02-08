@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Random;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -46,7 +47,7 @@ public class BeerRestControllerIT extends BaseIT {
 
         @Test
         void deleteBeerHttpBasic() throws Exception{
-            mockMvc.perform(delete("/api/v1/beer/" + beerToDelete().getId())
+            mockMvc.perform(delete("/api/v1/beer/" + beerToDelete().getId()).with(csrf())
                     .with(httpBasic("spring", "guru")))
                     .andExpect(status().is2xxSuccessful());
         }
@@ -61,7 +62,7 @@ public class BeerRestControllerIT extends BaseIT {
 
         @Test
         void deleteBeerNoAuth() throws Exception {
-            mockMvc.perform(delete("/api/v1/beer/" + beerToDelete().getId()))
+            mockMvc.perform(delete("/api/v1/beer/" + beerToDelete().getId()).with(csrf()))
                     .andExpect(status().isUnauthorized());
         }
     }
