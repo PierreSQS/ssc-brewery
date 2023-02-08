@@ -1,3 +1,5 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/PierreSQS/ssc-brewery/tree/lf-add-form-sb3.0.2.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/PierreSQS/ssc-brewery/tree/lf-add-form-sb3.0.2)
+
 # Brewery Spring MVC Monolith
 
 This repository contains source code examples used to support my on-line courses about the Spring Framework.
