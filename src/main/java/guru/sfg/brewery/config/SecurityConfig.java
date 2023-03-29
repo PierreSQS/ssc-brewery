@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import static guru.sfg.brewery.config.MyCustomDsl.customDsl;
 
 /**
- * Updated by Pierrot on 1/17/22.
+ * Updated by Pierrot on 3/29/23.
  */
 @Configuration
 @EnableWebSecurity
@@ -30,11 +30,12 @@ public class SecurityConfig {
                 http.apply(customDsl());
 
                 http
-                .authorizeHttpRequests(authorize -> authorize
+                .authorizeHttpRequests()
                         .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                         .requestMatchers("/beers/find", "/beers*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll()
+                .and()
                 .authorizeHttpRequests()
                 .anyRequest().authenticated()
                 .and()
