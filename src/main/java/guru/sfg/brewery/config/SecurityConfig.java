@@ -31,16 +31,16 @@ public class SecurityConfig {
 
                 http
                 .authorizeHttpRequests()
-                        .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
-                        .requestMatchers("/beers/find", "/beers*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll()
+                    .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
+                    .requestMatchers("/beers/find", "/beers*").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll()
                 .and()
-                .authorizeHttpRequests()
-                .anyRequest().authenticated()
+                    .authorizeHttpRequests().anyRequest().authenticated()
                 .and()
-                .formLogin().and()
-                .httpBasic();
+                    .formLogin()
+                .and()
+                    .httpBasic();
 
                 return http.build();
     }
