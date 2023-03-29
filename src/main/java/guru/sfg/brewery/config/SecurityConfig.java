@@ -1,6 +1,7 @@
 package guru.sfg.brewery.config;
 
 import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -31,6 +32,7 @@ public class SecurityConfig {
 
                 http
                 .authorizeHttpRequests()
+                     .requestMatchers(PathRequest.toH2Console()).permitAll()
                     .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                     .requestMatchers("/beers/find", "/beers*").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
@@ -40,7 +42,10 @@ public class SecurityConfig {
                 .and()
                     .formLogin()
                 .and()
-                    .httpBasic();
+                    .httpBasic()
+                .and()
+                    .headers().frameOptions().sameOrigin();
+
 
                 return http.build();
     }
