@@ -34,7 +34,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -52,41 +51,27 @@ public class BeerServiceImpl implements BeerService {
         BeerPagedList beerPagedList;
         Page<Beer> beerPage;
 
-        if (!StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
+        if (!StringUtils.hasLength(beerName) && !StringUtils.hasText(beerStyle.toString())) {
             //search both
             beerPage = beerRepository.findAllByBeerNameAndBeerStyle(beerName, beerStyle, pageRequest);
-        } else if (!StringUtils.isEmpty(beerName) && StringUtils.isEmpty(beerStyle)) {
+        } else if (!StringUtils.hasText(beerName) && StringUtils.hasText(beerStyle.toString())) {
             //search beer_service name
             beerPage = beerRepository.findAllByBeerName(beerName, pageRequest);
-        } else if (StringUtils.isEmpty(beerName) && !StringUtils.isEmpty(beerStyle)) {
+        } else if (StringUtils.hasText(beerName) && !StringUtils.hasText(beerStyle.toString())) {
             //search beer_service style
             beerPage = beerRepository.findAllByBeerStyle(beerStyle, pageRequest);
         } else {
             beerPage = beerRepository.findAll(pageRequest);
         }
 
-        if (showInventoryOnHand) {
-            beerPagedList = new BeerPagedList(beerPage
-                    .getContent()
-                    .stream()
-                    .map(beerMapper::beerToBeerDto)
-                    .collect(Collectors.toList()),
-                    PageRequest
-                            .of(beerPage.getPageable().getPageNumber(),
-                                    beerPage.getPageable().getPageSize()),
-                    beerPage.getTotalElements());
-
-        } else {
-            beerPagedList = new BeerPagedList(beerPage
-                    .getContent()
-                    .stream()
-                    .map(beerMapper::beerToBeerDto)
-                    .collect(Collectors.toList()),
-                    PageRequest
-                            .of(beerPage.getPageable().getPageNumber(),
-                                    beerPage.getPageable().getPageSize()),
-                    beerPage.getTotalElements());
-        }
+        beerPagedList = new BeerPagedList(beerPage
+                .getContent()
+                .stream()
+                .map(beerMapper::beerToBeerDto).toList(),
+                PageRequest
+                        .of(beerPage.getPageable().getPageNumber(),
+                                beerPage.getPageable().getPageSize()),
+                beerPage.getTotalElements());
         return beerPagedList;
     }
 
@@ -99,11 +84,7 @@ public class BeerServiceImpl implements BeerService {
 
         if (beerOptional.isPresent()) {
             log.debug("Found BeerId: " + beerId);
-            if(showInventoryOnHand) {
-                return beerMapper.beerToBeerDto(beerOptional.get());
-            } else {
-                return beerMapper.beerToBeerDto(beerOptional.get());
-            }
+            return beerMapper.beerToBeerDto(beerOptional.get());
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found. UUID: " + beerId);
         }

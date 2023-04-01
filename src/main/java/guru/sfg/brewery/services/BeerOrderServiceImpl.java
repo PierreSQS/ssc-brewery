@@ -35,7 +35,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -57,7 +56,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
             return new BeerOrderPagedList(beerOrderPage
                     .stream()
                     .map(beerOrderMapper::beerOrderToDto)
-                    .collect(Collectors.toList()), PageRequest.of(
+                    .toList(), PageRequest.of(
                     beerOrderPage.getPageable().getPageNumber(),
                     beerOrderPage.getPageable().getPageSize()),
                     beerOrderPage.getTotalElements());
