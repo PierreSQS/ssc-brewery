@@ -24,7 +24,7 @@ import lombok.Setter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -38,7 +38,7 @@ import java.util.UUID;
 public class Customer extends BaseEntity {
 
     @Builder
-    public Customer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerName,
+    public Customer(UUID id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String customerName,
                     UUID apiKey, Set<BeerOrder> beerOrders) {
         super(id, version, createdDate, lastModifiedDate);
         this.customerName = customerName;

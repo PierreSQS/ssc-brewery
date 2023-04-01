@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.Entity;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -35,7 +35,7 @@ import java.util.UUID;
 public class Brewery extends BaseEntity {
 
     @Builder
-    public Brewery(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String breweryName) {
+    public Brewery(UUID id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String breweryName) {
         super(id, version, createdDate, lastModifiedDate);
         this.breweryName = breweryName;
     }
