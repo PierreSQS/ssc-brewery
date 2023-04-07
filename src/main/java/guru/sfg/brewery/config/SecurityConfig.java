@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
- * Formatted by Pierrot on 2023-03-31.
+ * Modified by Pierrot on 2023-04-07.
  */
 @Configuration
 @EnableWebSecurity
@@ -27,7 +27,6 @@ public class SecurityConfig {
                         .requestMatchers(PathRequest.toH2Console()).permitAll() //do not use in production!
                         .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                         .requestMatchers("/beers/find", "/beers*").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll())
                     .authorizeHttpRequests().anyRequest().authenticated()
                 .and()
@@ -44,8 +43,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain rolesFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests()
-                .requestMatchers(HttpMethod.DELETE,"/api/v1/beer/**").hasRole("ADMIN");
+        httpSecurity.securityMatcher("/api/v1/beer/**")
+                .authorizeHttpRequests()
+                    .requestMatchers(HttpMethod.GET).permitAll()
+                    .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+                .and()
+                    .httpBasic()
+                .and()
+                    .csrf().disable();
         return httpSecurity.build();
     }
 
