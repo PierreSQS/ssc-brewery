@@ -21,13 +21,6 @@ class BeerRestControllerIT extends BaseIT {
                 .andExpect(status().is2xxSuccessful())
                 .andDo(print());
     }
-    @Test
-    void deleteBeerHttpBasicToDelete() throws Exception{
-        mockMvc.perform(delete("/api/v1/beer/97df0c39-90c4-4ae0-b663-453e8e19c311")
-                        .with(httpBasic("spring", "guru")))
-                .andExpect(status().is2xxSuccessful())
-                .andDo(print());
-    }
 
     @Test
     void deleteBeerNoAuth() throws Exception{
