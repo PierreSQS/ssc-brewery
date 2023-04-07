@@ -45,12 +45,12 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     private Collection<? extends GrantedAuthority> convertToSpringAuthorities(Set<Authority> authorities) {
         if (CollectionUtils.isEmpty(authorities)){
+            return new HashSet<>();
+        } else {
             return authorities.stream()
                     .map(Authority::getRole)
                     .map(SimpleGrantedAuthority::new)
                     .collect(Collectors.toSet());
-        } else {
-            return new HashSet<>();
         }
     }
 }
