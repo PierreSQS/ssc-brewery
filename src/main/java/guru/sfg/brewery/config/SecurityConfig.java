@@ -19,7 +19,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    @Order(1)
     public SecurityFilterChain generalFilterChain(HttpSecurity http) throws Exception {
 
                 http
@@ -42,6 +41,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Order(1)
     public SecurityFilterChain rolesFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.securityMatcher("/api/v1/beer/**")
                 .authorizeHttpRequests()
