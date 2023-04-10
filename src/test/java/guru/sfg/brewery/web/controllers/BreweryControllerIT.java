@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by Pierrot on 2023-01-23.
+ * Modified by Pierrot on 2023-04-10.
  */
 class BreweryControllerIT extends BaseIT {
 
@@ -35,7 +35,7 @@ class BreweryControllerIT extends BaseIT {
     @Test
     void listBreweriesADMINRole() throws Exception {
         mockMvc.perform(get("/brewery/breweries").with(httpBasic("spring","guru")))
-                .andExpect(status().isForbidden())
+                .andExpect(status().isOk())
                 .andDo(print());
     }
     @Test
@@ -59,7 +59,7 @@ class BreweryControllerIT extends BaseIT {
     }    @Test
     void getBreweriesJsonADMINRole() throws Exception  {
         mockMvc.perform(get("/brewery/api/v1/breweries").with(httpBasic("spring","guru")))
-                .andExpect(status().isForbidden())
+                .andExpect(status().isOk())
                 .andDo(print());
     }
     @Test
