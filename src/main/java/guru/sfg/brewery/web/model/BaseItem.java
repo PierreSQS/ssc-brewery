@@ -17,7 +17,6 @@
 
 package guru.sfg.brewery.web.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -38,11 +37,9 @@ public class BaseItem {
     @JsonProperty("version")
     private Integer version = null;
 
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
     @JsonProperty("createdDate")
     private LocalDateTime createdDate = null;
 
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ssZ", shape=JsonFormat.Shape.STRING)
     @JsonProperty("lastModifiedDate")
     private LocalDateTime lastModifiedDate = null;
 }
