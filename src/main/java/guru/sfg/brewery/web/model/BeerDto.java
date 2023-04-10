@@ -24,7 +24,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -33,7 +33,7 @@ import java.util.UUID;
 public class BeerDto extends BaseItem {
 
     @Builder
-    public BeerDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, String beerName,
+    public BeerDto(UUID id, Integer version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String beerName,
                    BeerStyleEnum beerStyle, String upc, Integer quantityOnHand, BigDecimal price) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerName = beerName;

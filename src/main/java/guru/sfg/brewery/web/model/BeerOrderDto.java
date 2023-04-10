@@ -22,7 +22,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,7 +32,7 @@ import java.util.UUID;
 public class BeerOrderDto extends BaseItem {
 
     @Builder
-    public BeerOrderDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate, UUID customerId, List<BeerOrderLineDto> beerOrderLines,
+    public BeerOrderDto(UUID id, Integer version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, UUID customerId, List<BeerOrderLineDto> beerOrderLines,
                         OrderStatusEnum orderStatus, String orderStatusCallbackUrl, String customerRef) {
         super(id, version, createdDate, lastModifiedDate);
         this.customerId = customerId;
