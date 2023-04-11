@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -52,7 +53,12 @@ class BeerControllerIT extends BaseIT{
                 .andExpect(model().attributeExists("beer"));
     }
 
-
-
+    @Test
+    void findBeerFormADMIN() throws Exception {
+        mockMvc.perform(get("/beers").param("beerName","")
+                .with(httpBasic("spring","guru")))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
 
 }

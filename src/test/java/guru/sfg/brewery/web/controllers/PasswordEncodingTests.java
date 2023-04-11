@@ -12,13 +12,13 @@ import org.springframework.util.DigestUtils;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Created by jt on 6/16/20.
+ * Modified by Pierrot on 4/11/23.
  */
+@Disabled("Tests disabled because execution too long and only for demo purpose!!")
 class PasswordEncodingTests {
 
     static final String PASSWORD = "password";
 
-    @Disabled("Disabled because execution too long!!")
     @Test
     void testBcrypt15() {
         PasswordEncoder bcrypt = new BCryptPasswordEncoder(15);
