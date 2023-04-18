@@ -1,6 +1,7 @@
 package guru.sfg.brewery.config;
 
 import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -11,19 +12,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
- * Created by jt on 6/13/20.
+ * Modified by Pierrot on 2023-04-18.
  */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig  {
 
+    @Bean
     public SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
 
                 httpSecurity
                 .authorizeHttpRequests(authorize -> {
                     authorize
-                            .requestMatchers("/h2-console/**").permitAll() //do not use in production!
+                            .requestMatchers(PathRequest.toH2Console()).permitAll() //do not use in production!
                             .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/v1/beer/**")
                                 .hasAnyRole("ADMIN", "CUSTOMER", "USER")
@@ -37,7 +39,7 @@ public class SecurityConfig  {
                             .requestMatchers("/beers/find", "/beers/{beerId}")
                                 .hasAnyRole("ADMIN", "CUSTOMER", "USER");
                 } )
-                .authorizeRequests()
+                .authorizeHttpRequests()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().and()
