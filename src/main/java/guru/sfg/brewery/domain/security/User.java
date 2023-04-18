@@ -2,7 +2,7 @@ package guru.sfg.brewery.domain.security;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Set;
 
 /**
@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "JT_USER")
 public class User {
 
     @Id
