@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/role-method-customer-sb3.0.5-INT-INT.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/role-method-customer-sb3.0.5-INT-INT)
+[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/role-method-customer-sb3.0.5-INT.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/role-method-customer-sb3.0.5-INT)
 # Brewery Spring MVC Monolith
 
 This repository contains source code examples used to support my on-line courses about the Spring Framework.
