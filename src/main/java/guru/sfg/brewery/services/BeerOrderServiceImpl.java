@@ -56,9 +56,8 @@ public class BeerOrderServiceImpl implements BeerOrderService {
 
             return new BeerOrderPagedList(beerOrderPage
                     .stream()
-                    .map(beerOrderMapper::beerOrderToDto)
-                    .collect(Collectors.toList()), PageRequest.of(
-                    beerOrderPage.getPageable().getPageNumber(),
+                    .map(beerOrderMapper::beerOrderToDto).toList(),
+                    PageRequest.of(beerOrderPage.getPageable().getPageNumber(),
                     beerOrderPage.getPageable().getPageSize()),
                     beerOrderPage.getTotalElements());
         } else {
@@ -111,7 +110,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
             if(beerOrderOptional.isPresent()){
                 BeerOrder beerOrder = beerOrderOptional.get();
 
-                // fall to exception if customer id's do not match - order not for customer
+                // fall to exception if customer ids do not match - order not for customer
                 if(beerOrder.getCustomer().getId().equals(customerId)){
                     return beerOrder;
                 }

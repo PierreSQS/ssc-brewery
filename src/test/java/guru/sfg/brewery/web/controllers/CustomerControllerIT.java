@@ -13,7 +13,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by jt on 6/27/20.
  */
 @SpringBootTest
-public class CustomerControllerIT extends BaseIT {
+class CustomerControllerIT extends BaseIT {
 
     @ParameterizedTest(name = "#{index} with [{arguments}]")
     @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamAdminCustomer")
