@@ -51,13 +51,12 @@ class CustomerControllerTest {
     CustomerController controller;
     List<Customer> customerList;
     UUID uuid;
-    Customer customer;
 
     MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        customerList = new ArrayList<Customer>();
+        customerList = new ArrayList<>();
         customerList.add(Customer.builder().customerName("John Doe").build());
         customerList.add(Customer.builder().customerName("John Doe").build());
 
@@ -79,7 +78,7 @@ class CustomerControllerTest {
     }
 //ToDO: Fix stubbing error
     @Test
-    @Disabled
+    @Disabled("ToDO: Fix stubbing error")
     void processFindFormReturnMany() throws Exception{
         when(customerRepository.findAllByCustomerNameLike("John Doe")).thenReturn(customerList);
 

@@ -25,7 +25,7 @@ public class SecurityConfig  {
                 httpSecurity
                 .authorizeHttpRequests(authorize -> {
                     authorize
-//                            .requestMatchers(PathRequest.toH2Console()).permitAll() //do not use in production!
+                            .requestMatchers(PathRequest.toH2Console()).permitAll() //do not use in production!
                             .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                             .requestMatchers(HttpMethod.GET, "/api/v1/beer/**")
                                 .hasAnyRole("ADMIN", "CUSTOMER", "USER")
