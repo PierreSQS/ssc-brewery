@@ -24,18 +24,18 @@ import lombok.Setter;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
 /**
- * Created by jt on 2019-01-26.
+ * Modified by Pierrot on 2023-04-20.
  */
 @Getter
 @Setter
@@ -44,7 +44,7 @@ import java.util.UUID;
 public class Beer extends BaseEntity {
 
     @Builder
-    public Beer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String beerName,
+    public Beer(UUID id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String beerName,
                 BeerStyleEnum beerStyle, String upc, Integer minOnHand,
                 Integer quantityToBrew, BigDecimal price, Set<BeerInventory> beerInventory) {
         super(id, version, createdDate, lastModifiedDate);

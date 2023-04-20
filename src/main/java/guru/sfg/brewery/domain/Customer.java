@@ -21,15 +21,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import java.sql.Timestamp;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
 /**
- * Created by jt on 2019-01-26.
+ * Modified by Pierrot on 2023-04-20.
  */
 @Getter
 @Setter
@@ -38,7 +38,7 @@ import java.util.UUID;
 public class Customer extends BaseEntity {
 
     @Builder
-    public Customer(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, String customerName,
+    public Customer(UUID id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, String customerName,
                     UUID apiKey, Set<BeerOrder> beerOrders) {
         super(id, version, createdDate, lastModifiedDate);
         this.customerName = customerName;
