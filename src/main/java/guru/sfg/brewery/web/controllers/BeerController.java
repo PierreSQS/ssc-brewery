@@ -21,7 +21,9 @@ package guru.sfg.brewery.web.controllers;
 import guru.sfg.brewery.domain.Beer;
 import guru.sfg.brewery.repositories.BeerInventoryRepository;
 import guru.sfg.brewery.repositories.BeerRepository;
+import guru.sfg.brewery.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -81,13 +83,15 @@ public class BeerController {
     public ModelAndView showBeer(@PathVariable UUID beerId) {
         ModelAndView mav = new ModelAndView("beers/beerDetails");
         //ToDO: Add Service
-        mav.addObject(beerRepository.findById(beerId).get());
+        val beerByIdOpt = beerRepository.findById(beerId);
+        beerByIdOpt.ifPresent(mav::addObject);
         return mav;
     }
 
     @GetMapping("/new")
     public String initCreationForm(Model model) {
         model.addAttribute("beer", Beer.builder().build());
+        model.addAttribute("beerStyle", BeerStyleEnum.values());
         return "beers/createBeer";
     }
 
@@ -109,8 +113,8 @@ public class BeerController {
 
     @GetMapping("/{beerId}/edit")
     public String initUpdateBeerForm(@PathVariable UUID beerId, Model model) {
-        if (beerRepository.findById(beerId).isPresent())
-            model.addAttribute("beer", beerRepository.findById(beerId).get());
+        val beerByIDOpt = beerRepository.findById(beerId);
+        beerByIDOpt.ifPresent(beer -> model.addAttribute("beer", beer));
         return "beers/createOrUpdateBeer";
     }
 
