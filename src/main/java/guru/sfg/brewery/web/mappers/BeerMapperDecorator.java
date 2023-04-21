@@ -38,7 +38,7 @@ public abstract class BeerMapperDecorator implements BeerMapper{
 
         BeerDto dto = beerMapper.beerToBeerDto(beer);
 
-        if(beer.getBeerInventory() != null && beer.getBeerInventory().size() > 0) {
+        if(beer.getBeerInventory() != null && !beer.getBeerInventory().isEmpty()) {
             dto.setQuantityOnHand(beer.getBeerInventory()
                     .stream().map(BeerInventory::getQuantityOnHand)
                     .reduce(0, Integer::sum));

@@ -20,7 +20,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
                 http
-                .authorizeRequests(authorize -> {
+                .authorizeHttpRequests(authorize -> {
                     authorize
                             .requestMatchers("/h2-console/**").permitAll() //do not use in production!
                             .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
@@ -36,12 +36,12 @@ public class SecurityConfig {
                             .requestMatchers("/beers/find", "/beers/{beerId}")
                                 .hasAnyRole("ADMIN", "CUSTOMER", "USER");
                 } )
-                .authorizeRequests()
-                .anyRequest().authenticated()
+                .authorizeHttpRequests().anyRequest().authenticated()
                 .and()
-                .formLogin().and()
+                    .formLogin().and()
                 .httpBasic()
-                .and().csrf().disable();
+                .and()
+                    .csrf().disable();
 
                 //h2 console config
                 http.headers().frameOptions().sameOrigin();

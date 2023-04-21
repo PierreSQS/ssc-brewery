@@ -20,6 +20,7 @@ package guru.sfg.brewery.web.controllers;
 import guru.sfg.brewery.domain.Customer;
 import guru.sfg.brewery.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -71,7 +72,8 @@ public class CustomerController {
     public ModelAndView showCustomer(@PathVariable UUID customerId) {
         ModelAndView mav = new ModelAndView("customers/customerDetails");
         //ToDO: Add Service
-        mav.addObject(customerRepository.findById(customerId).get());
+       val beerByID = customerRepository.findById(customerId);
+       beerByID.ifPresent(mav::addObject);
         return mav;
     }
 
@@ -94,8 +96,8 @@ public class CustomerController {
 
     @GetMapping("/{customerId}/edit")
    public String initUpdateCustomerForm(@PathVariable UUID customerId, Model model) {
-       if(customerRepository.findById(customerId).isPresent())
-          model.addAttribute("customer", customerRepository.findById(customerId).get());
+        val custByIDOpt = customerRepository.findById(customerId);
+        custByIDOpt.ifPresent(customer -> model.addAttribute("customer", customer));
        return "customers/createOrUpdateCustomer";
    }
 
