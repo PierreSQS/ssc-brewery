@@ -16,6 +16,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private static final String ADMIN_ROLE = "ADMIN";
+    private static final String CUSTOMER_ROLE = "CUSTOMER";
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -24,16 +27,16 @@ public class SecurityConfig {
                         .requestMatchers("/h2-console/**").permitAll() //do not use in production!
                         .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/beer/**")
-                            .hasAnyRole("ADMIN", "CUSTOMER", "USER")
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole("ADMIN")
+                            .hasAnyRole(ADMIN_ROLE, CUSTOMER_ROLE, "USER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole(ADMIN_ROLE)
                         .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}")
-                            .hasAnyRole("ADMIN", "CUSTOMER", "USER")
+                            .hasAnyRole(ADMIN_ROLE, CUSTOMER_ROLE, "USER")
                         .requestMatchers("/brewery/breweries")
-                            .hasAnyRole("ADMIN", "CUSTOMER")
+                            .hasAnyRole(ADMIN_ROLE, CUSTOMER_ROLE)
                         .requestMatchers(HttpMethod.GET, "/brewery/api/v1/breweries")
-                            .hasAnyRole("ADMIN", "CUSTOMER")
+                            .hasAnyRole(ADMIN_ROLE, CUSTOMER_ROLE)
                         .requestMatchers("/beers/find", "/beers/{beerId}")
-                            .hasAnyRole("ADMIN", "CUSTOMER", "USER"))
+                            .hasAnyRole(ADMIN_ROLE, CUSTOMER_ROLE, "USER"))
                    .authorizeHttpRequests().anyRequest().authenticated()
                 .and()
                     .formLogin()
