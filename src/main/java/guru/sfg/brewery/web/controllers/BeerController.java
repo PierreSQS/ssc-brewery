@@ -113,8 +113,11 @@ public class BeerController {
 
     @GetMapping("/{beerId}/edit")
     public String initUpdateBeerForm(@PathVariable UUID beerId, Model model) {
-        val beerByIDOpt = beerRepository.findById(beerId);
-        beerByIDOpt.ifPresent(beer -> model.addAttribute("beer", beer));
+        if (beerRepository.findById(beerId).isPresent()) {
+            model.addAttribute("beer", beerRepository.findById(beerId).get());
+            model.addAttribute("beerStyle", BeerStyleEnum.values());
+        }
+
         return "beers/createOrUpdateBeer";
     }
 
