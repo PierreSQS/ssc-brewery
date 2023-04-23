@@ -20,6 +20,7 @@ package guru.sfg.brewery.web.controllers;
 import guru.sfg.brewery.domain.Beer;
 import guru.sfg.brewery.repositories.BeerRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -85,8 +86,10 @@ class BeerControllerTest {
     }
 
     //ToDO: Mocking Page
+     @Disabled("ToDO: Mocking Page")
+     @Test
      void processFindFormReturnMany() throws Exception{
-        when(beerRepository.findAllByBeerName(anyString(), PageRequest.of(0,
+        when(beerRepository.findAllByBeerName("Mock Beer", PageRequest.of(0,
               10,Sort.Direction.DESC,"beerName"))).thenReturn(pagedResponse);
         mockMvc.perform(get("/beers"))
                 .andExpect(status().isOk())

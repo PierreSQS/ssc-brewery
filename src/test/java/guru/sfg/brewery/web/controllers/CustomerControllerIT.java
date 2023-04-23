@@ -23,7 +23,7 @@ public class CustomerControllerIT extends BaseIT {
     @Nested
     class ListCustomers{
         @ParameterizedTest(name = "#{index} with [{arguments}]")
-        @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamAdminCustomer")
+        @MethodSource("guru.sfg.brewery.web.controllers.CustomerControllerIT#getStreamAdminCustomer")
         void testListCustomersAUTH(String user, String pwd) throws Exception {
             mockMvc.perform(get("/customers")
                     .with(httpBasic(user, pwd)))
@@ -61,7 +61,7 @@ public class CustomerControllerIT extends BaseIT {
 
         @Rollback
         @ParameterizedTest(name = "#{index} with [{arguments}]")
-        @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamNotAdmin")
+        @MethodSource("guru.sfg.brewery.web.controllers.CustomerControllerIT#getStreamNotAdmin")
         void processCreationFormNOTAUTH(String user, String pwd) throws Exception{
             mockMvc.perform(post("/customers/new")
                     .param("customerName", "Foo Customer2")
