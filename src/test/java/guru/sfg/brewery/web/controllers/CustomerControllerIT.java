@@ -7,6 +7,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -27,7 +28,7 @@ class CustomerControllerIT extends BaseIT {
         @MethodSource("guru.sfg.brewery.web.controllers.CustomerControllerIT#getStreamAdminCustomer")
         void testListCustomersAUTH(String user, String pwd) throws Exception {
             mockMvc.perform(get("/customers")
-                    .with(httpBasic(user, pwd)))
+                    .param("customerName",user).with(httpBasic(user, pwd)))
                     .andExpect(status().isOk())
                     .andDo(print());
 
@@ -50,8 +51,8 @@ class CustomerControllerIT extends BaseIT {
             mockMvc.perform(post("/customers/new")
                             .param("testCust","testPWD")
                             .with(httpBasic("spring","guru")))
-                    .andExpect(status().isOk())
-                    .andExpect(view().name("customers/findCustomers"))
+                    .andExpect(status().is3xxRedirection())
+                    .andExpect(view().name(containsString("redirect:/customers")))
                     .andDo(print());
         }
 
@@ -59,8 +60,15 @@ class CustomerControllerIT extends BaseIT {
         @MethodSource("guru.sfg.brewery.web.controllers.CustomerControllerIT#getStreamNotAdmin")
         void testProcessCreationFormNotAuthorized(String user, String pwd) throws Exception {
             mockMvc.perform(post("/customers/new")
-                            .param("customerName",user).with(httpBasic(user,pwd)))
+                            .with(httpBasic(user,pwd)))
                     .andExpect(status().isForbidden())
+                    .andDo(print());
+        }
+
+        void testProcessCreationNoAuthentication() throws Exception {
+            mockMvc.perform(post("/customers/new")
+                            .with(httpBasic("A USER","A PWD")))
+                    .andExpect(status().isUnauthorized())
                     .andDo(print());
         }
 

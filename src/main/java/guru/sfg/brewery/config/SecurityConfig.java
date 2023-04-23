@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -14,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * Modified by Pierrot on 2023-04-20.
  */
 @Configuration
+@EnableWebSecurity
 // Enables @Secured specified in JSR-250 as per SB3.0.x
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfig {
