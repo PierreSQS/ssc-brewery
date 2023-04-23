@@ -20,6 +20,7 @@ package guru.sfg.brewery.web.controllers;
 import guru.sfg.brewery.domain.Customer;
 import guru.sfg.brewery.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -35,6 +36,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/customers")
 @Controller
@@ -55,6 +57,8 @@ public class CustomerController {
         // find customers by name
         //ToDO: Add Service
         List<Customer> customers = customerRepository.findAllByCustomerNameLike("%" + customer.getCustomerName() + "%");
+
+        log.info("the found Customers: {}", customers.stream().map(Customer::getCustomerName).toList());
         if (customers.isEmpty()) {
             // no customers found
             result.rejectValue("customerName", "notFound", "not found");
