@@ -34,9 +34,8 @@ public class JpaUserDetailsService implements UserDetailsService {
 
         log.debug("Getting User info via JPA");
 
-        User user = userRepository.findByUsername(username).orElseThrow(() -> {
-            return new UsernameNotFoundException("User name: " + username + " not found");
-        });
+        User user = userRepository.findByUsername(username).orElseThrow(() ->
+                new UsernameNotFoundException("User name: " + username + " not found"));
 
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
                 user.getEnabled(), user.getAccountNonExpired(), user.getCredentialsNonExpired(),
@@ -44,7 +43,7 @@ public class JpaUserDetailsService implements UserDetailsService {
     }
 
     private Collection<? extends GrantedAuthority> convertToSpringAuthorities(Set<Authority> authorities) {
-        if (authorities != null && authorities.size() > 0){
+        if (authorities != null && !authorities.isEmpty()){
             return authorities.stream()
                     .map(Authority::getRole)
                     .map(SimpleGrantedAuthority::new)

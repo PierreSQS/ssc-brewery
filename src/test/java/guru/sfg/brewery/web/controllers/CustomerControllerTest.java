@@ -79,7 +79,7 @@ class CustomerControllerTest {
     }
 //ToDO: Fix stubbing error
     @Test
-    @Disabled
+    @Disabled("ToDO: Fix stubbing error")
     void processFindFormReturnMany() throws Exception{
         when(customerRepository.findAllByCustomerNameLike("John Doe")).thenReturn(customerList);
 

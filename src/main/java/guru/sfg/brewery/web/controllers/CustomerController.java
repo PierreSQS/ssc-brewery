@@ -32,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -73,7 +74,8 @@ public class CustomerController {
     public ModelAndView showCustomer(@PathVariable UUID customerId) {
         ModelAndView mav = new ModelAndView("customers/customerDetails");
         //ToDO: Add Service
-        mav.addObject(customerRepository.findById(customerId).get());
+       Optional<Customer> custByIDOpt = customerRepository.findById(customerId);
+       custByIDOpt.ifPresent(mav::addObject);
         return mav;
     }
 
@@ -97,8 +99,9 @@ public class CustomerController {
 
     @GetMapping("/{customerId}/edit")
    public String initUpdateCustomerForm(@PathVariable UUID customerId, Model model) {
-       if(customerRepository.findById(customerId).isPresent())
-          model.addAttribute("customer", customerRepository.findById(customerId).get());
+        Optional<Customer> custByIDOpt = customerRepository.findById(customerId);
+        custByIDOpt.ifPresent(customer -> model.addAttribute("customer",customer));
+
        return "customers/createOrUpdateCustomer";
    }
 
