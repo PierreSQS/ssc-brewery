@@ -78,7 +78,7 @@ public class BeerRestControllerIT extends BaseIT {
         @ParameterizedTest(name = "#{index} with [{arguments}]")
         @MethodSource("guru.sfg.brewery.web.controllers.BeerControllerIT#getStreamAllUsers")
         void findBeersAUTH(String user, String pwd) throws Exception {
-            mockMvc.perform(get("/api/v1/beer/").with(httpBasic(user, pwd)))
+            mockMvc.perform(get("/api/v1/beer").with(httpBasic(user, pwd)))
                     .andExpect(status().isOk());
         }
     }
