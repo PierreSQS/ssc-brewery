@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 /**
  * Created by Pierrot on 4/22/23.
@@ -23,12 +24,20 @@ class CustomerControllerIT extends BaseIT {
     @Nested
     class ListCustomers {
         @ParameterizedTest(name = "#{index} with [{arguments}]")
-        @MethodSource("guru.sfg.brewery.web.controllers.BaseIT#getStreamAdminCustomer")
+        @MethodSource("guru.sfg.brewery.web.controllers.CustomerControllerIT#getStreamAdminCustomer")
         void testListCustomersAUTH(String user, String pwd) throws Exception {
             mockMvc.perform(get("/customers")
-                            .param("customerName",user).with(httpBasic(user,pwd)))
-                    .andExpect(status().is3xxRedirection())
+                    .with(httpBasic(user, pwd)))
+                    .andExpect(status().isOk())
                     .andDo(print());
+
+        }
+
+        @Test
+        void testListCustomersNOTAUTH() throws Exception {
+            mockMvc.perform(get("/customers")
+                    .with(httpBasic("user", "password")))
+                    .andExpect(status().isForbidden());
         }
 
     }
@@ -42,11 +51,12 @@ class CustomerControllerIT extends BaseIT {
                             .param("testCust","testPWD")
                             .with(httpBasic("spring","guru")))
                     .andExpect(status().isOk())
+                    .andExpect(view().name("customers/findCustomers"))
                     .andDo(print());
         }
 
         @ParameterizedTest(name = "#{index} with [{arguments}]")
-        @MethodSource("guru.sfg.brewery.web.controllers.BaseIT#getStreamNotAdmin")
+        @MethodSource("guru.sfg.brewery.web.controllers.CustomerControllerIT#getStreamNotAdmin")
         void testProcessCreationFormNotAuthorized(String user, String pwd) throws Exception {
             mockMvc.perform(post("/customers/new")
                             .param("customerName",user).with(httpBasic(user,pwd)))
