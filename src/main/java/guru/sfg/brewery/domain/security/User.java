@@ -14,6 +14,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+// User is a reserved word (as per H2.2.214)
+@Table(name = "JT_USER")
 public class User {
 
     @Id
