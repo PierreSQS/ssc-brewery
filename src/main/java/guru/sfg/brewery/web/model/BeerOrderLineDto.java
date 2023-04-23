@@ -22,7 +22,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -31,7 +31,7 @@ import java.util.UUID;
 public class BeerOrderLineDto extends BaseItem {
 
     @Builder
-    public BeerOrderLineDto(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
+    public BeerOrderLineDto(UUID id, Integer version, LocalDateTime createdDate, LocalDateTime lastModifiedDate,
                             UUID beerId, Integer orderQuantity) {
         super(id, version, createdDate, lastModifiedDate);
         this.beerId = beerId;

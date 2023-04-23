@@ -21,13 +21,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import java.sql.Timestamp;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
- * Created by jt on 2019-01-26.
+ * Modified by Pierrot on 2023-04-23.
  */
 @Getter
 @Setter
@@ -36,7 +36,7 @@ import java.util.UUID;
 public class BeerInventory extends BaseEntity{
 
     @Builder
-    public BeerInventory(UUID id, Long version, Timestamp createdDate, Timestamp lastModifiedDate, Beer beer,
+    public BeerInventory(UUID id, Long version, LocalDateTime createdDate, LocalDateTime lastModifiedDate, Beer beer,
                          Integer quantityOnHand) {
         super(id, version, createdDate, lastModifiedDate);
         this.beer = beer;
