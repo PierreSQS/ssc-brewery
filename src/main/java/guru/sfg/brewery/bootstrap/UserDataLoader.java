@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,26 +30,22 @@ public class UserDataLoader implements CommandLineRunner {
 
     private void loadSecurityData() {
         // Beer permissions
-        Authority beerCreate = authorityRepository.save(Authority.builder().permission("beer.create").build());
-        Authority beerUpdate = authorityRepository.save(Authority.builder().permission("beer.update").build());
-        Authority beerRead = authorityRepository.save(Authority.builder().permission("beer.read").build());
-        Authority beerDelete = authorityRepository.save(Authority.builder().permission("beer.delete").build());
+        Authority createBeer = authorityRepository.save(Authority.builder().permission("beer.create").build());
+        Authority updateBeer = authorityRepository.save(Authority.builder().permission("beer.update").build());
+        Authority readBeer = authorityRepository.save(Authority.builder().permission("beer.read").build());
+        Authority deleteBeer = authorityRepository.save(Authority.builder().permission("beer.delete").build());
 
-        Role adminRole = roleRepository.save(Role.builder()
-                .name("ROLE_ADMIN")
-                .build());
+        Role adminRole = roleRepository.save(Role.builder().name("ROLE_ADMIN").build());
+        Role customerRole = roleRepository.save(Role.builder().name("ROLE_CUSTOMER").build());
+        Role userRole = roleRepository.save(Role.builder().name("ROLE_USER").build());
 
-        Role customerRole = roleRepository.save(Role.builder()
-                .name("ROLE_CUSTOMER")
-                .build());
+        adminRole.setAuthorities(Set.of(createBeer, updateBeer, readBeer, deleteBeer));
 
-        Role userRole = roleRepository.save(Role.builder()
-                .name("ROLE_USER")
-                .build());
+        customerRole.setAuthorities(Set.of(readBeer));
 
-        adminRole.setAuthorities(Set.of(beerCreate,beerUpdate,beerRead,beerDelete));
-        customerRole.setAuthorities(Set.of(beerRead));
-        userRole.setAuthorities(Set.of(beerUpdate,beerRead));
+        userRole.setAuthorities(Set.of(updateBeer,readBeer));
+
+        roleRepository.saveAll(List.of(adminRole, customerRole, userRole));
 
         userRepository.save(User.builder()
                 .username("spring")
