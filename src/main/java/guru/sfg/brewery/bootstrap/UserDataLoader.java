@@ -12,10 +12,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import java.util.Set;
 
 /**
- * Created by jt on 6/21/20.
+ * Modified by Pierrot on 4/28/22.
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -35,16 +35,20 @@ public class UserDataLoader implements CommandLineRunner {
         Authority beerDelete = authorityRepository.save(Authority.builder().permission("beer.delete").build());
 
         Role adminRole = roleRepository.save(Role.builder()
-                .authorities(List.of(beerCreate,beerUpdate,beerRead,beerDelete))
+                .name("ROLE_ADMIN")
                 .build());
 
         Role customerRole = roleRepository.save(Role.builder()
-                .authorities(List.of(beerUpdate,beerRead))
+                .name("ROLE_CUSTOMER")
                 .build());
 
         Role userRole = roleRepository.save(Role.builder()
-                .authorities(List.of(beerUpdate,beerRead))
+                .name("ROLE_USER")
                 .build());
+
+        adminRole.setAuthorities(Set.of(beerCreate,beerUpdate,beerRead,beerDelete));
+        customerRole.setAuthorities(Set.of(beerRead));
+        userRole.setAuthorities(Set.of(beerUpdate,beerRead));
 
         userRepository.save(User.builder()
                 .username("spring")
