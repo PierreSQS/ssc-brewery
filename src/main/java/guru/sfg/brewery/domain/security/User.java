@@ -45,16 +45,4 @@ public class User {
                 .collect(Collectors.toSet());
     }
 
-    @Builder.Default
-    private Boolean accountNonExpired = true;
-
-    @Builder.Default
-    private Boolean accountNonLocked = true;
-
-    @Builder.Default
-    private Boolean credentialsNonExpired = true;
-
-    @Builder.Default
-    private Boolean enabled = true;
-
 }
