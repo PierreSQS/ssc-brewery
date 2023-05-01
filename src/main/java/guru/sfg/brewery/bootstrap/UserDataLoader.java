@@ -9,7 +9,6 @@ import guru.sfg.brewery.repositories.security.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -26,7 +25,6 @@ public class UserDataLoader implements CommandLineRunner {
     private final AuthorityRepository authorityRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     private void loadSecurityData() {
         // Beer permissions
@@ -63,26 +61,26 @@ public class UserDataLoader implements CommandLineRunner {
 
         userRepository.save(User.builder()
                 .username("spring")
-                .password(passwordEncoder.encode("guru"))
+                .password("{bcrypt10}$2a$10$fmQXIYEj0HzlpUTpoaLypukDGMzJPobdhnmJ6Shwk4SSasUbebj0u") // guru
                 .role(adminRole)
                 .build());
 
         userRepository.save(User.builder()
                 .username("user")
-                .password(passwordEncoder.encode("password"))
+                .password("{bcrypt10}$2a$10$veQm7eW19JiqIn3Jd2WNAu/tR.7ZytXl5o5FqvwmMMRDbuE1oB3vK") // password
                 .role(userRole)
                 .build());
 
         User scott = userRepository.save(User.builder()
                 .username("scott")
-                .password(passwordEncoder.encode("tiger"))
+                .password("{bcrypt10}$2a$10$M9SEWILH/MQtY4NP5G7IX.4tpnVKyRygGS/iqN6svBLFAkVoTDxHG") // tiger
                 .role(customerRole)
                 .build());
 
-        log.debug("Users Loaded: " + userRepository.count());
+        log.info("Users Loaded: " + userRepository.count());
 
         // Just to Check the loaded permissions in the DB for USER scott
-        scott.getAuthorities().forEach(authority -> log.info("##### {} #####",authority.getPermission()));
+        scott.getAuthorities().forEach(authority -> log.debug("##### {} #####",authority.getPermission()));
     }
 
     @Override
