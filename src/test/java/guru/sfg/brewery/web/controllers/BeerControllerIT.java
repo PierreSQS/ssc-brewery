@@ -28,7 +28,7 @@ public class BeerControllerIT extends BaseIT{
     @Nested
     class InitNewForm{
 
-        void initCreationFormAuth(String user, String pwd) throws Exception {
+        void initCreationFormAuth() throws Exception {
 
             mockMvc.perform(get("/beers/new").with(httpBasic("spring", "guru")))
                     .andExpect(status().isOk())
