@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/ua-beer-api-sb3.0.6-INT.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/ua-beer-api-sb3.0.6-INT)
+[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/ua-update-remaining-controllers-sb3.0.6-INT.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/ua-update-remaining-controllers-sb3.0.6-INT)
 # Brewery Spring MVC Monolith
 
 This repository contains source code examples used to support my on-line courses about the Spring Framework.
