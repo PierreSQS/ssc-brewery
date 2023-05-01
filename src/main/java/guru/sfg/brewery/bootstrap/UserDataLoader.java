@@ -31,19 +31,33 @@ public class UserDataLoader implements CommandLineRunner {
     private void loadSecurityData() {
         // Beer permissions
         Authority createBeer = authorityRepository.save(Authority.builder().permission("beer.create").build());
-        Authority updateBeer = authorityRepository.save(Authority.builder().permission("beer.update").build());
         Authority readBeer = authorityRepository.save(Authority.builder().permission("beer.read").build());
+        Authority updateBeer = authorityRepository.save(Authority.builder().permission("beer.update").build());
         Authority deleteBeer = authorityRepository.save(Authority.builder().permission("beer.delete").build());
+
+        // Customer permissions
+        Authority createCustomer = authorityRepository.save(Authority.builder().permission("customer.create").build());
+        Authority readCustomer = authorityRepository.save(Authority.builder().permission("customer.read").build());
+        Authority updateCustomer = authorityRepository.save(Authority.builder().permission("customer.update").build());
+        Authority deleteCustomer = authorityRepository.save(Authority.builder().permission("customer.delete").build());
+
+        // Brewery permissions
+        Authority createBrewery = authorityRepository.save(Authority.builder().permission("brewery.create").build());
+        Authority readBrewery = authorityRepository.save(Authority.builder().permission("brewery.read").build());
+        Authority updateBrewery = authorityRepository.save(Authority.builder().permission("brewery.update").build());
+        Authority deleteBrewery = authorityRepository.save(Authority.builder().permission("brewery.delete").build());
 
         Role adminRole = roleRepository.save(Role.builder().name("ROLE_ADMIN").build());
         Role customerRole = roleRepository.save(Role.builder().name("ROLE_CUSTOMER").build());
         Role userRole = roleRepository.save(Role.builder().name("ROLE_USER").build());
 
-        adminRole.setAuthorities(Set.of(createBeer, updateBeer, readBeer, deleteBeer));
+        adminRole.setAuthorities(Set.of(createBeer, updateBeer, readBeer, deleteBeer,
+                createCustomer, readCustomer, updateCustomer, deleteCustomer,
+                createBrewery, readBrewery, updateBrewery, deleteBrewery));
 
-        customerRole.setAuthorities(Set.of(readBeer));
+        customerRole.setAuthorities(Set.of(readBeer, updateBeer, readCustomer, updateCustomer, readBrewery, updateBrewery));
 
-        userRole.setAuthorities(Set.of(updateBeer,readBeer));
+        userRole.setAuthorities(Set.of(readBeer, readCustomer,readBrewery));
 
         roleRepository.saveAll(List.of(adminRole, customerRole, userRole));
 
@@ -59,13 +73,16 @@ public class UserDataLoader implements CommandLineRunner {
                 .role(userRole)
                 .build());
 
-        userRepository.save(User.builder()
+        User scott = userRepository.save(User.builder()
                 .username("scott")
                 .password(passwordEncoder.encode("tiger"))
                 .role(customerRole)
                 .build());
 
         log.debug("Users Loaded: " + userRepository.count());
+
+        // Just to Check the loaded permissions in the DB for USER scott
+        scott.getAuthorities().forEach(authority -> log.info("##### {} #####",authority.getPermission()));
     }
 
     @Override
