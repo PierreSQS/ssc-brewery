@@ -30,11 +30,6 @@ public class SecurityConfig {
                    .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(PathRequest.toH2Console()).permitAll() //do not use in production!
                         .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/beer/**")
-                            .hasAnyRole(ADMIN_ROLE, CUSTOMER_ROLE, "USER")
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/beer/**").hasRole(ADMIN_ROLE)
-                        .requestMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}")
-                            .hasAnyRole(ADMIN_ROLE, CUSTOMER_ROLE, "USER")
                         .requestMatchers("/brewery/breweries")
                             .hasAnyRole(ADMIN_ROLE, CUSTOMER_ROLE)
                         .requestMatchers(HttpMethod.GET, "/brewery/api/v1/breweries")
