@@ -3,6 +3,9 @@ package guru.sfg.brewery.web.controllers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.provider.Arguments;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.h2.H2ConsoleAutoConfiguration;
+import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -14,6 +17,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 /**
  * Created by jt on 6/13/20.
  */
+@Import(H2ConsoleProperties.class)
 public abstract class BaseIT {
     @Autowired
     WebApplicationContext wac;
