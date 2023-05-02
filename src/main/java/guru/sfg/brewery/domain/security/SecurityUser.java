@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+/**
+ *  * Created by Pierrot on 5/2/23.
+ */
 @AllArgsConstructor
 public class SecurityUser implements UserDetails {
 

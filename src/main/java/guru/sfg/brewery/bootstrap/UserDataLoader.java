@@ -9,7 +9,6 @@ import guru.sfg.brewery.repositories.security.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by jt on 6/21/20.
+ * Modified by Pierrot on 5/2/23.
  */
 @Slf4j
 @RequiredArgsConstructor
@@ -28,7 +27,6 @@ public class UserDataLoader implements CommandLineRunner {
     private final AuthorityRepository authorityRepository;
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     private void loadSecurityData() {
         //beer auths
