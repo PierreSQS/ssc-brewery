@@ -7,7 +7,6 @@ import guru.sfg.brewery.repositories.CustomerRepository;
 import guru.sfg.brewery.services.BeerOrderService;
 import guru.sfg.brewery.services.BeerService;
 import guru.sfg.brewery.services.BreweryService;
-import guru.sfg.brewery.web.controllers.api.BeerOrderController;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -20,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by jt on 6/13/20.
+ * Modified by Pierrot on 5/2/23.
  */
 @WebMvcTest
 @Import(SecurityConfig.class)
