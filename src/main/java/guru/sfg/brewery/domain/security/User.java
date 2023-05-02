@@ -3,11 +3,13 @@ package guru.sfg.brewery.domain.security;
 import lombok.*;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Modified by Pierrot on 2023-04-23.
+ * Modified by Pierrot on 2023-05-01.
  */
 @Setter
 @Getter
@@ -31,10 +33,10 @@ public class User {
     @JoinTable(name = "user_role",
         joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
         inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     @Transient
-    private Set<Authority> authorities;
+    private Set<Authority> authorities = new HashSet<>();
 
     public Set<Authority> getAuthorities() {
         return this.roles.stream()

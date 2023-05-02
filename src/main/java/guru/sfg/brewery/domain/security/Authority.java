@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.util.Set;
 
 /**
- * Created by jt on 6/21/20.
+ * Modified by Pierrot on 5/2/23.
  */
 @Setter
 @Getter

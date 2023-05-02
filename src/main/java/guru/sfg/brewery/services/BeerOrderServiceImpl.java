@@ -109,7 +109,7 @@ public class BeerOrderServiceImpl implements BeerOrderService {
             if(beerOrderOptional.isPresent()){
                 BeerOrder beerOrder = beerOrderOptional.get();
 
-                // fall to exception if customer id's do not match - order not for customer
+                // fall to exception if customer IDs do not match - order not for customer
                 if(beerOrder.getCustomer().getId().equals(customerId)){
                     return beerOrder;
                 }

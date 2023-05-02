@@ -28,8 +28,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SfgBreweryUiApplicationTests {
 
     @Test
-    void contextLoads(ApplicationContext appCxt) {
-        assertThat(appCxt).isNotNull();
+    void contextLoads(ApplicationContext appCtx) {
+        assertThat(appCtx).isNotNull();
     }
 
 }

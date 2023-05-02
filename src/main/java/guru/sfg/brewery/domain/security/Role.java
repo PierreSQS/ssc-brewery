@@ -3,10 +3,12 @@ package guru.sfg.brewery.domain.security;
 import lombok.*;
 
 import jakarta.persistence.*;
+
+import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by jt on 6/29/20.
+ * Modified by Pierrot on 5/1/23.
  */
 @Setter
 @Getter
@@ -29,6 +31,6 @@ public class Role {
     @JoinTable(name = "role_authority",
         joinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")},
         inverseJoinColumns = {@JoinColumn(name = "AUTHORITY_ID", referencedColumnName = "ID")})
-    private Set<Authority> authorities;
+    private Set<Authority> authorities = new HashSet<>();
 
 }
