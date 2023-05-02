@@ -1,6 +1,7 @@
 package guru.sfg.brewery.config;
 
 import guru.sfg.brewery.security.SfgPasswordEncoderFactories;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -22,7 +23,7 @@ public class SecurityConfig {
 
                 http
                 .authorizeHttpRequests()
-                        .requestMatchers("/h2-console/**").permitAll() //do not use in production!
+                        .requestMatchers(PathRequest.toH2Console()).permitAll() //do not use in production!
                         .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                 .and()
                 .authorizeHttpRequests()
