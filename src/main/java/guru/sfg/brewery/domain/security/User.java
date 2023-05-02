@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Created by jt on 6/21/20.
+ * Modified by Pierrot on 2023-04-23.
  */
 @Setter
 @Getter
@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 @Entity
+// User is a reserved word (as per H2.2.214)
+@Table(name = "JT_USER")
 public class User {
 
     @Id
