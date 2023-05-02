@@ -40,6 +40,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -88,7 +89,8 @@ public class BeerController {
     public ModelAndView showBeer(@PathVariable UUID beerId) {
         ModelAndView mav = new ModelAndView("beers/beerDetails");
         //ToDO: Add Service
-        mav.addObject(beerRepository.findById(beerId).get());
+        Optional<Beer> beerByIDOpt = beerRepository.findById(beerId);
+        beerByIDOpt.ifPresent(mav::addObject);
         return mav;
     }
 
@@ -119,10 +121,13 @@ public class BeerController {
     @BeerUpdatePermission
     @GetMapping("/{beerId}/edit")
     public String initUpdateBeerForm(@PathVariable UUID beerId, Model model) {
-        if (beerRepository.findById(beerId).isPresent()) {
-            model.addAttribute("beer", beerRepository.findById(beerId).get());
+        Optional<Beer> beerByIDOpt = beerRepository.findById(beerId);
+
+        beerByIDOpt.ifPresent(beer -> {
+            model.addAttribute("beer", beer);
             model.addAttribute("beerStyle", BeerStyleEnum.values());
-        }
+        });
+
         return "beers/createOrUpdateBeer";
     }
 

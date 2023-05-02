@@ -54,18 +54,16 @@ class BeerControllerTest {
     BeerController controller;
     List<Beer> beerList;
     UUID uuid;
-    Beer beer;
 
     MockMvc mockMvc;
-    Page<Beer> beers;
     Page<Beer> pagedResponse;
 
     @BeforeEach
     void setUp() {
-        beerList = new ArrayList<Beer>();
+        beerList = new ArrayList<>();
         beerList.add(Beer.builder().build());
         beerList.add(Beer.builder().build());
-        pagedResponse = new PageImpl(beerList);
+        pagedResponse = new PageImpl<>(beerList);
 
         final String id = "493410b3-dd0b-4b78-97bf-289f50f6e74f";
         uuid = UUID.fromString(id);

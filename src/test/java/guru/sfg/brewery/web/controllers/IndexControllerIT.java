@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @WebMvcTest
 @Import(SecurityConfig.class)
-public class IndexControllerIT extends BaseIT {
+class IndexControllerIT extends BaseIT {
 
     @MockBean
     BeerRepository beerRepository;
