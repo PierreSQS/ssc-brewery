@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/mtc-user-details-sb3.0.6-INT.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/mtc-user-details-sb3.0.6-INT)
+[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/mtc-user-customer-jpa-sb3.0.6-INT.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/mtc-user-customer-jpa-sb3.0.6-INT)
 # Brewery Spring MVC Monolith
 
 This repository contains source code examples used to support my on-line courses about the Spring Framework.
