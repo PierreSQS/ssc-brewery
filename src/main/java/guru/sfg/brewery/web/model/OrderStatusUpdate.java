@@ -22,7 +22,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -31,7 +31,7 @@ import java.util.UUID;
 public class OrderStatusUpdate extends BaseItem {
 
     @Builder
-    public OrderStatusUpdate(UUID id, Integer version, OffsetDateTime createdDate, OffsetDateTime lastModifiedDate,
+    public OrderStatusUpdate(UUID id, Integer version, LocalDateTime createdDate, LocalDateTime lastModifiedDate,
                              UUID orderId, String orderStatus, String customerRef) {
         super(id, version, createdDate, lastModifiedDate);
         this.orderId = orderId;
