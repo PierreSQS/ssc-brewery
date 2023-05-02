@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/mtc-order-controller-sb3.0.6-INT.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/mtc-order-controller-sb3.0.6-INT)
+[![CircleCI](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/mtc-order-roles-sb3.0.6-INT.svg?style=shield)](https://circleci.com/gh/PierreSQS/ssc-brewery/tree/mtc-order-roles-sb3.0.6-INT)
 # Brewery Spring MVC Monolith
 
 This repository contains source code examples used to support my on-line courses about the Spring Framework.
