@@ -65,28 +65,29 @@ public class UserDataLoader implements CommandLineRunner {
 
         userRepository.save(User.builder()
                 .username("spring")
-                .password(passwordEncoder.encode("guru"))
+                .password("{bcrypt10}$2a$10$D7iYBWZv3ER77JOZKWOSwuEPYBnqWkmUcfZgoiI/8YLET0fKnzdpa")
                 .role(adminRole)
                 .build());
 
         userRepository.save(User.builder()
-                .username("user")
-                .password(passwordEncoder.encode("password"))
-                .role(userRole)
-                .build());
-
-        userRepository.save(User.builder()
                 .username("scott")
-                .password(passwordEncoder.encode("tiger"))
+                .password("{bcrypt10}$2a$10$6AjiWZ2ZqMdTxnO7k6bpmOXcQ6bPCl9aGtFENW1ipcwZMo.ZiBAuC")
                 .role(customerRole)
                 .build());
 
-        log.debug("Users Loaded: " + userRepository.count());
+
+        userRepository.save(User.builder()
+                .username("user")
+                .password("{bcrypt10}$2a$10$IQeb5jvmIsLO/jDSM9KdPeI84KXm5YYpk9yZs1SU5DwJmi8cqnOSW")
+                .role(userRole)
+                .build());
+
+        log.info("#### Users Loaded: {} ####", userRepository.count());
     }
 
     @Transactional
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (authorityRepository.count() == 0) {
             loadSecurityData();
         }
