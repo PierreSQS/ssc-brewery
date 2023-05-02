@@ -24,6 +24,7 @@ import guru.sfg.brewery.repositories.BeerRepository;
 import guru.sfg.brewery.security.perms.BeerCreatePermission;
 import guru.sfg.brewery.security.perms.BeerReadPermission;
 import guru.sfg.brewery.security.perms.BeerUpdatePermission;
+import guru.sfg.brewery.web.model.BeerStyleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -118,8 +119,10 @@ public class BeerController {
     @BeerUpdatePermission
     @GetMapping("/{beerId}/edit")
     public String initUpdateBeerForm(@PathVariable UUID beerId, Model model) {
-        if (beerRepository.findById(beerId).isPresent())
+        if (beerRepository.findById(beerId).isPresent()) {
             model.addAttribute("beer", beerRepository.findById(beerId).get());
+            model.addAttribute("beerStyle", BeerStyleEnum.values());
+        }
         return "beers/createOrUpdateBeer";
     }
 
