@@ -51,4 +51,11 @@ public class SecurityUser implements UserDetails {
         return true;
     }
 
+    @Override
+    // To get the Security User's name in the logs
+    public String toString() {
+        return "SecurityUser{" +
+                "user=" + user.getUsername() +
+                '}';
+    }
 }

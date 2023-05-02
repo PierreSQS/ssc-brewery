@@ -51,7 +51,6 @@ class CustomerControllerTest {
     CustomerController controller;
     List<Customer> customerList;
     UUID uuid;
-    Customer customer;
 
     MockMvc mockMvc;
 

@@ -54,10 +54,9 @@ class BeerControllerTest {
     BeerController controller;
     List<Beer> beerList;
     UUID uuid;
-    Beer beer;
 
     MockMvc mockMvc;
-    Page<Beer> beers;
+
     Page<Beer> pagedResponse;
 
     @BeforeEach
