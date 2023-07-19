@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    options {
+        timeout(time: 1, unit: 'HOURS')
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn -V clean compile'
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                sh 'mnv -V test'
+            }
+        }
+
+        stage('Integration Tests') {
+            steps {
+                sh 'mvn -V failsafe:integration-test'
+            }
+        }
+
+    }
+}
