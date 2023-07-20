@@ -1,22 +1,25 @@
 pipeline {
     agent any
     options {
-        timeout(time: 1, unit: 'HOURS')
+        timeout(time: 30, unit: 'MINUTES')
     }
     stages {
         stage('Build') {
             steps {
+                echo 'building branch..'
                 sh 'mvn -V clean compile'
             }
         }
         stage('Unit Tests') {
             steps {
-                sh 'mnv -V test'
+                echo 'running unit tests..'
+                sh 'mvn -V test'
             }
         }
 
         stage('Integration Tests') {
             steps {
+                echo 'running integration tests..'
                 sh 'mvn -V failsafe:integration-test'
             }
         }
