@@ -6,7 +6,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'building branch..'
+                echo '########### Commiter ${GIT_COMMITTER_NAME} ###########'
+                echo 'building branch ${GIT_BRANCH}..'
                 sh 'mvn -V clean compile'
             }
         }
