@@ -39,6 +39,7 @@ import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -73,7 +74,8 @@ class CustomerControllerTest {
         mockMvc.perform(get("/customers/find"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("customers/findCustomers"))
-                .andExpect(model().attributeExists("customer"));
+                .andExpect(model().attributeExists("customer"))
+                .andDo(print());
         verifyNoInteractions(customerRepository);
     }
 //ToDO: Fix stubbing error
