@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.anonymous;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -40,7 +41,8 @@ public class BeerControllerIT extends BaseIT{
         @Test
         void initCreationFormNotAuth() throws Exception {
             mockMvc.perform(get("/beers/new"))
-                    .andExpect(status().isUnauthorized());
+                    .andExpect(status().isUnauthorized())
+                    .andDo(print());
         }
     }
 
@@ -54,7 +56,8 @@ public class BeerControllerIT extends BaseIT{
                     .with(httpBasic(user, pwd)))
                     .andExpect(status().isOk())
                     .andExpect(view().name("beers/findBeers"))
-                    .andExpect(model().attributeExists("beer"));
+                    .andExpect(model().attributeExists("beer"))
+                    .andDo(print());
         }
 
         @Test

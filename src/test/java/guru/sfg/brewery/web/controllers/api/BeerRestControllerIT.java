@@ -17,6 +17,7 @@ import java.util.Random;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -48,7 +49,8 @@ public class BeerRestControllerIT extends BaseIT {
         void deleteBeerHttpBasic() throws Exception{
             mockMvc.perform(delete("/api/v1/beer/" + beerToDelete().getId())
                     .with(httpBasic("spring", "guru")))
-                    .andExpect(status().is2xxSuccessful());
+                    .andExpect(status().is2xxSuccessful())
+                    .andDo(print());
         }
 
         @ParameterizedTest(name = "#{index} with [{arguments}]")
