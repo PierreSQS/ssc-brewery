@@ -7,20 +7,20 @@ pipeline {
         stage('Build') {
             steps {
                 echo "########### Commiter ${env.GIT_COMMITTER_NAME} ###########"
-                echo "building branch ${env.GIT_BRANCH}.."
+                echo "########### building branch ${env.GIT_BRANCH} ###########.."
                 sh 'mvn -V clean compile'
             }
         }
         stage('Unit Tests') {
             steps {
-                echo 'running unit tests..'
+                echo '########### running unit tests..########### '
                 sh 'mvn -V test'
             }
         }
 
         stage('Integration Tests') {
             steps {
-                echo 'running integration tests..'
+                echo '########### running integration tests..########### '
                 sh 'mvn -V failsafe:integration-test'
             }
         }
