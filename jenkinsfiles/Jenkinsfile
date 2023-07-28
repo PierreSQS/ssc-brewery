@@ -23,13 +23,15 @@ pipeline {
                 echo '########### running integration tests..########### '
                 sh 'mvn -V -B failsafe:integration-test'
             }
-        }
 
-        post {
-            failure {
-                junit 'build/reports/**/*.xml'
+            post {
+                failure {
+                    junit 'build/reports/**/*.xml'
+                }
             }
         }
+
+
 
     }
 }
