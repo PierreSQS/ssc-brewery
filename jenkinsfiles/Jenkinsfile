@@ -21,7 +21,7 @@ pipeline {
         stage('Integration Tests') {
             steps {
                 echo '########### running integration tests..########### '
-                sh 'mvn -V failsafe:integration-test'
+                sh 'mvn -V -B failsafe:integration-test'
             }
         }
 
